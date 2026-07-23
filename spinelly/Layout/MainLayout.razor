@@ -1,0 +1,135 @@
+@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="@_theme" IsDarkMode="_isDarkMode" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="0" Class="portfolio-appbar">
+        <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex align-center px-4">
+            <MudLink Href="#home" Underline="Underline.None" Color="Color.Inherit" Class="brand-logo">
+                spinelly<span class="brand-dot">.</span>
+            </MudLink>
+
+            <MudSpacer />
+
+            <div class="d-none d-md-flex align-center gap-2">
+                <MudLink Href="#about" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">About</MudLink>
+                <MudLink Href="#education" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Education</MudLink>
+                <MudLink Href="#skills" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Skills</MudLink>
+                <MudLink Href="#projects" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Projects</MudLink>
+                <MudLink Href="#contact" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Contact</MudLink>
+                <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" Class="ml-2" />
+            </div>
+
+            <div class="d-flex d-md-none align-center">
+                <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" OnClick="@DrawerToggle" />
+            </div>
+        </MudContainer>
+    </MudAppBar>
+
+    <MudDrawer @bind-Open="_drawerOpen" Anchor="Anchor.End" Elevation="2" Variant="DrawerVariant.Temporary">
+        <MudNavMenu Class="pa-2">
+            <MudNavLink Href="#home" Icon="@Icons.Material.Filled.Home" OnClick="@(() => _drawerOpen = false)">Home</MudNavLink>
+            <MudNavLink Href="#about" Icon="@Icons.Material.Filled.Person" OnClick="@(() => _drawerOpen = false)">About</MudNavLink>
+            <MudNavLink Href="#education" Icon="@Icons.Material.Filled.School" OnClick="@(() => _drawerOpen = false)">Education</MudNavLink>
+            <MudNavLink Href="#skills" Icon="@Icons.Material.Filled.Code" OnClick="@(() => _drawerOpen = false)">Skills</MudNavLink>
+            <MudNavLink Href="#projects" Icon="@Icons.Material.Filled.Work" OnClick="@(() => _drawerOpen = false)">Projects</MudNavLink>
+            <MudNavLink Href="#contact" Icon="@Icons.Material.Filled.Email" OnClick="@(() => _drawerOpen = false)">Contact</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+
+    <MudMainContent>
+        @Body
+
+        <footer class="site-footer">
+            <MudContainer MaxWidth="MaxWidth.Large" Class="d-flex flex-column flex-sm-row justify-space-between align-center gap-2 py-6">
+                <MudText Typo="Typo.body2" Class="footer-text">&copy; @DateTime.Now.Year spinelly. Built with Blazor WebAssembly &amp; MudBlazor.</MudText>
+                <div class="d-flex gap-1">
+                    <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Href="https://github.com/SpinellyA/" Target="_blank" Color="Color.Inherit" Size="Size.Small" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Email" Href="mailto:cabildo.alexsam@gmail.com" Color="Color.Inherit" Size="Size.Small" />
+                </div>
+            </MudContainer>
+        </footer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen = false;
+    private bool _isDarkMode = true;
+    private MudTheme? _theme;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _theme = new()
+        {
+            PaletteLight = _lightPalette,
+            PaletteDark = _darkPalette,
+            LayoutProperties = new LayoutProperties
+            {
+                DefaultBorderRadius = "10px"
+            },
+            Typography = new Typography
+            {
+                Default = new DefaultTypography { FontFamily = new[] { "Inter", "Roboto", "Helvetica", "Arial", "sans-serif" } }
+            }
+        };
+    }
+
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+    private void DarkModeToggle() => _isDarkMode = !_isDarkMode;
+
+    private readonly PaletteLight _lightPalette = new()
+    {
+        Primary = "#6f5bff",
+        Black = "#110e2d",
+        Background = "#ffffff",
+        Surface = "#ffffff",
+        AppbarText = "#2b2942",
+        AppbarBackground = "rgba(255,255,255,0.85)",
+        DrawerBackground = "#ffffff",
+        GrayLight = "#e8e8e8",
+        GrayLighter = "#f9f9f9",
+    };
+
+    private readonly PaletteDark _darkPalette = new()
+    {
+        Primary = "#8b7dff",
+        Secondary = "#3ee6c4",
+        Surface = "#171522",
+        Background = "#0e0d16",
+        BackgroundGray = "#12111c",
+        AppbarText = "#c7c5d9",
+        AppbarBackground = "rgba(14,13,22,0.75)",
+        DrawerBackground = "#12111c",
+        ActionDefault = "#8783a0",
+        ActionDisabled = "#9999994d",
+        ActionDisabledBackground = "#605f6d4d",
+        TextPrimary = "#eceafc",
+        TextSecondary = "#9b98b3",
+        TextDisabled = "#ffffff33",
+        DrawerIcon = "#9b98b3",
+        DrawerText = "#c7c5d9",
+        GrayLight = "#211f2e",
+        GrayLighter = "#171522",
+        Info = "#4a9eff",
+        Success = "#3ee6c4",
+        Warning = "#ffb545",
+        Error = "#ff5f7e",
+        LinesDefault = "#2a2838",
+        TableLines = "#2a2838",
+        Divider = "#242236",
+        OverlayLight = "#17152280",
+    };
+
+    public string DarkLightModeButtonIcon => _isDarkMode switch
+    {
+        true => Icons.Material.Rounded.LightMode,
+        false => Icons.Material.Outlined.DarkMode,
+    };
+}

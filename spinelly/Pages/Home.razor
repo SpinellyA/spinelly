@@ -1,0 +1,450 @@
+@page "/"
+
+<PageTitle>Sup - am Spinelly</PageTitle>
+
+<section id="home" class="hero">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudGrid Class="align-center">
+            <MudItem xs="12" md="7">
+                <MudText Typo="Typo.subtitle1" Class="hero-kicker">
+                    @_kickerText<span class="typing-caret @(_caretOnKicker ? "" : "typing-caret-hidden")"></span>
+                </MudText>
+                <MudText Typo="Typo.h1" Class="hero-title">
+                    @_nameBase<span class="@(_suffixHighlighted ? "typing-highlight" : "")">@_nameSuffix</span><span class="typing-caret @(_caretOnName ? "" : "typing-caret-hidden")"></span>
+                </MudText>
+                <MudText Typo="Typo.h5" Class="hero-subtitle">Full-Stack Developer &amp; 3rd-Year CS Major</MudText>
+                <MudText Typo="Typo.body1" Class="hero-desc">
+                    <span class="hero-emphasis">Nothing stops me and my vision. It will happen.</span>
+                    I live in .NET, and systems architecture and design is where I do my best thinking. <br/>
+                    I build software that transforms experiences, brings in people, and boosts productivity.<br/> This means software such as my recently founded <strong>Scholaris</strong>,
+                    a highly complex Scholarship Management System that aims to solve the core problems of today's workflows.
+                </MudText>
+                <div class="hero-actions">
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Href="#projects" Class="rounded-lg">
+                        View My Work
+                    </MudButton>
+                    <MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Large" Href="#contact" Class="rounded-lg">
+                        Get In Touch
+                    </MudButton>
+                </div>
+                <MudText Typo="Typo.body2" Class="hero-note mt-4">
+                    Curious about the person behind the code? Reach out. I don't bite, and I'll gladly go down a
+                    rabbit hole with you on just about anything.
+                </MudText>
+            </MudItem>
+            <MudItem xs="12" md="5" Class="d-flex justify-center justify-md-end">
+                <div class="hero-photo-frame">
+                    <img src="images/profile.jpg" alt="Portrait photo" class="hero-photo" />
+                </div>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</section>
+
+<section id="about" class="section">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.overline" Class="section-kicker">About</MudText>
+        <MudText Typo="Typo.h3" Class="section-title mb-6">Software? Coding? No, I aspire to create.</MudText>
+
+        <MudGrid>
+            <MudItem xs="12" md="7">
+                <MudText Typo="Typo.body1" Class="about-text">
+                    My main passion is creation, not just code. Everyone says it these days: "I love coding," or "I love engineering software", it's the same tired line.
+                    But what I actually care about is taking a rough idea and turning it into something people can use.
+                    There's something deeply special about watching an idea of mine actually change how people work, and knowing my name is on that outcome.
+                    <br />That's why my projects are built FOR users, not just some pretentious attempt at ambitious innovation. The same drive extends
+                    past my code; it's why I make YouTube videos, write, and pick up whatever skill a project actually needs.
+                </MudText>
+                <br />
+                <MudText Typo="Typo.body1" Class="about-text">
+                    Tell me, reader. What soul does software have if it doesn't solve people's problems?
+                </MudText>
+            </MudItem>
+
+            <MudItem xs="12" md="5">
+                <MudPaper Class="pa-6 about-card" Elevation="0">
+                    <MudText Typo="Typo.subtitle2" Class="mb-3">Quick Facts</MudText>
+                    <MudList T="string" Dense="true" Padding="false">
+                        <MudListItem T="string" Icon="@Icons.Material.Filled.School">3rd-Year CS Major</MudListItem>
+                        <MudListItem T="string" Icon="@Icons.Material.Filled.LocationOn">Cebu, Philippines</MudListItem>
+                        <MudListItem T="string" Icon="@Icons.Material.Filled.Code">.NET Purist (C#)</MudListItem>
+                        @* <MudListItem T="string" Icon="@Icons.Material.Filled.Rocket">Building Scholaris (SaaS)</MudListItem> *@
+                        <MudListItem T="string" Icon="@Icons.Material.Filled.PlayCircle">YouTube Creator (2K+ Subs)</MudListItem>
+                    </MudList>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
+</section>
+
+<section id="education" class="section section-alt">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.overline" Class="section-kicker">Education</MudText>
+        <MudText Typo="Typo.h3" Class="section-title mb-6">Academic background</MudText>
+
+        <div class="edu-timeline">
+            @foreach (var entry in _education)
+            {
+                <div class="edu-item">
+                    <div class="edu-marker"></div>
+                    <div class="edu-content">
+                        <div class="d-flex align-center gap-3">
+                            <div class="edu-logo-wrap">
+                                @if (!string.IsNullOrEmpty(entry.LogoUrl))
+                                {
+                                    <img src="@entry.LogoUrl" alt="@entry.Institution logo" class="edu-logo" />
+                                }
+                                else
+                                {
+                                    <MudIcon Icon="@Icons.Material.Filled.School" Color="Color.Primary" />
+                                }
+                            </div>
+                            <div>
+                                <MudText Typo="Typo.overline" Color="Color.Primary">@entry.Period</MudText>
+                                <MudText Typo="Typo.h6" Class="mb-0">@entry.Title</MudText>
+                            </div>
+                        </div>
+                        <MudText Typo="Typo.subtitle2" Class="edu-school mt-2 mb-2">@entry.Institution</MudText>
+                        @if (!string.IsNullOrEmpty(entry.Description))
+                        {
+                            <MudText Typo="Typo.body2" Class="edu-desc">@entry.Description</MudText>
+                        }
+                        @if (entry.Highlights.Count > 0)
+                        {
+                            <div class="skill-chip-row mt-3">
+                                @foreach (var highlight in entry.Highlights)
+                                {
+                                    <MudTooltip Text="@highlight.Description" Disabled="@string.IsNullOrEmpty(highlight.Description)">
+                                        <MudChip T="string" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.WorkspacePremium" Class="honor-chip">@highlight.Name</MudChip>
+                                    </MudTooltip>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </MudContainer>
+</section>
+
+<section id="skills" class="section">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.overline" Class="section-kicker">Skills</MudText>
+        <MudText Typo="Typo.h3" Class="section-title mb-6">What I work with</MudText>
+
+        <MudGrid>
+            @foreach (var group in _skillGroups)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudText Typo="Typo.subtitle2" Class="skill-group-title mb-2">@group.Category</MudText>
+                    <div class="skill-chip-row">
+                        @foreach (var skill in group.Items)
+                        {
+                            <MudTooltip Text="@(skill.Reluctant ? "Used it. Can still use it. Would rather not." : skill.Description)" Disabled="@(!skill.Reluctant && string.IsNullOrEmpty(skill.Description))">
+                                <MudChip T="string" Variant="Variant.Text" Color="Color.Primary"
+                                         Icon="@(skill.Reluctant ? Icons.Material.Filled.SentimentVeryDissatisfied : null)"
+                                         Class="@(skill.Reluctant ? "skill-chip skill-chip-reluctant" : "skill-chip")">@skill.Name</MudChip>
+                            </MudTooltip>
+                        }
+                    </div>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudContainer>
+</section>
+
+<section id="projects" class="section section-alt">
+    <MudContainer MaxWidth="MaxWidth.Large">
+        <MudText Typo="Typo.overline" Class="section-kicker">Projects</MudText>
+        <MudText Typo="Typo.h3" Class="section-title mb-6">Featured work</MudText>
+
+        @{
+            var featured = _projects.First(p => p.Featured);
+            var others = _projects.Where(p => !p.Featured).ToList();
+        }
+
+        <MudPaper Class="pa-6 pa-md-8 mb-8 featured-project" Elevation="0">
+            <MudGrid>
+                <MudItem xs="12" md="8">
+                    <MudText Typo="Typo.overline" Color="Color.Primary">Flagship Project</MudText>
+                    <MudText Typo="Typo.h4" Class="mb-2">@featured.Name</MudText>
+                    <MudText Typo="Typo.body1" Class="mb-4">@featured.LongDescription</MudText>
+                    <div class="skill-chip-row mb-4">
+                        @foreach (var tag in featured.Tags)
+                        {
+                            <MudTooltip Text="@tag.Description" Disabled="@string.IsNullOrEmpty(tag.Description)">
+                                <MudChip T="string" Variant="Variant.Text" Color="Color.Secondary" Class="skill-chip">@tag.Name</MudChip>
+                            </MudTooltip>
+                        }
+                    </div>
+                    <div class="hero-actions">
+                        @if (!string.IsNullOrEmpty(featured.LandingPageLink))
+                        {
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="@featured.LandingPageLink" Target="_blank">
+                                Visit Landing Page
+                            </MudButton>
+                        }
+                        @if (!string.IsNullOrEmpty(featured.DemoLink))
+                        {
+                            <MudButton Variant="Variant.Outlined" Color="Color.Default" Href="@featured.DemoLink" Target="_blank">
+                                Live Demo
+                            </MudButton>
+                        }
+                    </div>
+                </MudItem>
+                <MudItem xs="12" md="4" Class="d-flex flex-column align-center justify-center">
+                    <div class="project-icon-wrap">
+                        <MudIcon Icon="@Icons.Material.Filled.School" Style="font-size: 5rem;" Color="Color.Primary" />
+                    </div>
+                    <MudText Typo="Typo.overline" Class="mt-2">I dont really have logo yet lol :')</MudText>
+                </MudItem>
+
+            </MudGrid>
+        </MudPaper>
+
+        <MudGrid>
+            @foreach (var project in others)
+            {
+                <MudItem xs="12" sm="6" md="4">
+                    <MudPaper Class="pa-6 project-card" Elevation="0">
+                        <MudText Typo="Typo.h6" Class="mb-2">@project.Name</MudText>
+                        <MudText Typo="Typo.body2" Class="mb-4 project-desc">@project.ShortDescription</MudText>
+                        <div class="skill-chip-row mb-3">
+                            @foreach (var tag in project.Tags)
+                            {
+                                <MudTooltip Text="@tag.Description" Disabled="@string.IsNullOrEmpty(tag.Description)">
+                                    <MudChip T="string" Variant="Variant.Text" Size="Size.Small" Class="skill-chip">@tag.Name</MudChip>
+                                </MudTooltip>
+                            }
+                        </div>
+                        @if (!string.IsNullOrEmpty(project.LandingPageLink))
+                        {
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" Size="Size.Small" StartIcon="@Icons.Custom.Brands.GitHub" Href="@project.LandingPageLink" Target="_blank">
+                                View Repo
+                            </MudButton>
+                        }
+                    </MudPaper>
+                </MudItem>
+            }
+        </MudGrid>
+    </MudContainer>
+</section>
+
+<section id="contact" class="section">
+    <MudContainer MaxWidth="MaxWidth.Medium" Class="text-center">
+        <MudText Typo="Typo.overline" Class="section-kicker">Contact</MudText>
+        <MudText Typo="Typo.h3" Class="section-title mb-4">Let's build something</MudText>
+        <MudText Typo="Typo.body1" Class="mb-6">
+            Open to internships, freelance work, and anything worth building together. Pick a channel, say hi.
+        </MudText>
+        <div class="d-flex justify-center flex-wrap gap-3">
+            <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Email" Href="mailto:cabildo.alexsam@gmail.com" Size="Size.Large">
+                Email Me
+            </MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Default" StartIcon="@Icons.Custom.Brands.GitHub" Href="https://github.com/SpinellyA/" Target="_blank" Size="Size.Large">
+                GitHub
+            </MudButton>
+        </div>
+    </MudContainer>
+</section>
+
+@code {
+    private string _kickerText = "";
+    private string _nameBase = "";
+    private string _nameSuffix = "";
+    private bool _suffixHighlighted = false;
+    private bool _caretOnKicker = true;
+    private bool _caretOnName = false;
+
+    protected override void OnInitialized()
+    {
+        _ = RunHeroIntroAsync();
+    }
+
+    private async Task RunHeroIntroAsync()
+    {
+        await TypeAsync(text => _kickerText = text, "Hello, my name is", 40);
+        await Task.Delay(250);
+
+        _caretOnKicker = false;
+        _caretOnName = true;
+        StateHasChanged();
+
+        await TypeAsync(text => _nameBase = text, "Alex", 60);
+        await TypeAsync(text => _nameSuffix = text, " Sam Cabildo", 45);
+        await Task.Delay(550);
+
+        _suffixHighlighted = true;
+        StateHasChanged();
+        await Task.Delay(500);
+
+        _nameSuffix = "";
+        _suffixHighlighted = false;
+        _caretOnName = false;
+        _caretOnKicker = true;
+        StateHasChanged();
+        await Task.Delay(200);
+
+        await DeleteToAsync(text => _kickerText = text, "", 40);
+        await Task.Delay(150);
+        await TypeAppendAsync(text => _kickerText = text, "", "What's poppin'? You can call me", 35);
+
+        await Task.Delay(400);
+        _caretOnKicker = false;
+        StateHasChanged();
+    }
+
+    private async Task TypeAsync(Action<string> setter, string fullText, int delayMs)
+    {
+        for (var i = 1; i <= fullText.Length; i++)
+        {
+            setter(fullText[..i]);
+            StateHasChanged();
+            await Task.Delay(delayMs);
+        }
+    }
+
+    private async Task TypeAppendAsync(Action<string> setter, string basePrefix, string suffix, int delayMs)
+    {
+        for (var i = 1; i <= suffix.Length; i++)
+        {
+            setter(basePrefix + suffix[..i]);
+            StateHasChanged();
+            await Task.Delay(delayMs);
+        }
+    }
+
+    private async Task DeleteToAsync(Action<string> setter, string targetPrefix, int delayMs)
+    {
+        var text = _kickerText;
+        while (text.Length > targetPrefix.Length)
+        {
+            text = text[..^1];
+            setter(text);
+            StateHasChanged();
+            await Task.Delay(delayMs);
+        }
+    }
+
+    private readonly List<EducationEntry> _education =
+    [
+        new(
+            "2024 – Present",
+            "B.S. Computer Science",
+            "University of the Philippines Cebu",
+"As the pioneering university in the country, the University of the Philippines boasts a highly rigorous, technical, and theoretical Computer Science curriculum. Here, I master complex algorithmic analysis, data structures, software engineering, and systems architecture, while diving deep into discrete mathematics, data science, and artificial intelligence.",
+            "images/logos/up.svg",
+            [new Tag("Iskolar ng Bayan"), new Tag("Rank #1 University Nationwide")]
+        ),
+        new(
+            "2024 – Present",
+            "DOST-SEI RA 7687 Scholar",
+            "Department of Science and Technology, Science Education Institute",
+            "A national science and technology scholarship awarded to students pursuing priority STEM degrees, covering tuition and a living allowance in exchange for a return-service commitment after graduation.",
+            "images/logos/dost.svg",
+            [new Tag("Full Merit Scholarship")]
+        ),
+        new(
+            "2022 – 2024",
+            "Senior High School, STEM Strand",
+            "Cebu City National Science High School",
+            "Built the math and science foundation that carried straight into a CS degree.",
+            "images/logos/scihi.png",
+            [new Tag("Graduated with High Honors")]
+        ),
+        new(
+            "2018 – 2022",
+            "Junior High School",
+            "Cebu City National Science High School",
+            "Where the science track started, and where a general curiosity turned into a specific interest in building things. Due to the highly competitive nature of my peers, it jumpstarted my momentum as a high-achieving scholar.",
+            "images/logos/scihi.png",
+            [new Tag("Graduated with High Honors")]
+        ),
+    ];
+
+    private readonly List<SkillGroup> _skillGroups =
+    [
+        new("Languages", [
+            new Tag("C#"),
+            new Tag("Python", "Used for the SMS Bulker fieldwork tool.", Reluctant: true),
+            new Tag("JavaScript", Reluctant: true),
+            new Tag("C++"),
+            new Tag("C"),
+            new Tag("SQL"),
+            new Tag("HTML/CSS"),
+        ]),
+        new("Frameworks & Libraries", [
+            new Tag("Blazor", "Both Server and WebAssembly render modes, across Scholaris, FindersJeepers, and Project Artemis."),
+            new Tag("ASP.NET Core"),
+            new Tag("MudBlazor"),
+            new Tag("EF Core"),
+            new Tag("FastEndpoints", "A minimal, high-performance alternative to MVC controllers for building APIs."),
+            new Tag("MediatR", "Mediator pattern library used to implement CQRS in Scholaris."),
+            new Tag("SignalR", "Real-time communication for live features in Blazor Server apps."),
+            new Tag("React", "Used to build ExamGrinder.", Reluctant: true),
+        ]),
+        new("Data & Auth", [
+            new Tag("PostgreSQL"),
+            new Tag("SQL Server"),
+            new Tag("JWT Authentication"),
+        ]),
+        new("Tooling", [
+            new Tag("Git"),
+            new Tag("Docker"),
+            new Tag("Fly.io"),
+            new Tag("xUnit", "Unit and integration testing across backend projects."),
+        ]),
+        new("Other Skills", [
+            new Tag("Speech Delivery"),
+            new Tag("Video Production & Editing"),
+            new Tag("Writing"),
+            new Tag("Speed Typing"),
+            new Tag("AI Skills"),
+        ]),
+    ];
+
+    private readonly List<ProjectEntry> _projects =
+    [
+        new(
+            "Scholaris",
+            "The scholarship platform that replaces spreadsheets, chasing emails, and guesswork with one system of record.",
+            "A scholarship information system built for institutions, not spreadsheets. Full scholar lifecycle management, per-term compliance submissions, a real owed-vs-paid stipend ledger, an appeals process, support tickets, and white-label theming, all on one platform.",
+            "https://scholaris.spinelly.net",
+            "https://scholaris-app.spinelly.net",
+            [new Tag("Blazor Server"), new Tag(".NET 10"), new Tag("PostgreSQL"), new Tag("Clean Architecture"), new Tag("DDD"), new Tag("CQRS")],
+            Featured: true
+        ),
+        new(
+            "FindersJeepers",
+            "A live jeepney fleet management and dispatch platform, from driver profiles to real-time route tracking.",
+            "An admin dashboard and live tracking platform for jeepney fleets, drivers, and routes. Tracks trips end to end, from dispatch to completion, with real-time maps, route and driver utilization charts, and a live public journey map for commuters.",
+            "https://github.com/SpinellyA/FindersJeepers",
+            null,
+            [new Tag("Blazor Web App"), new Tag("ASP.NET Core"), new Tag("PostgreSQL"), new Tag("EF Core"), new Tag("Live Maps")]
+        ),
+        new(
+            "Project Artemis",
+            "A whitelist and player dashboard system for a private Minecraft SMP, from application to live server stats.",
+            "Manages whitelist requests for a private Minecraft server organized around school communities. Applicants apply, admins review and approve, and accepted players get a personal dashboard showing live server status, player counts, and a countdown to the next season.",
+            null,
+            null,
+            [new Tag("Blazor"), new Tag("ASP.NET Core"), new Tag("Authentication"), new Tag("Minecraft Server API")]
+        ),
+        new(
+            "SMS Bulker",
+            "A bulk SMS tool built for UP Cebu NSTP fieldwork, turning a stack of phones into a batch messaging rig.",
+            "Built for UP Cebu's NSTP Section L to support fieldwork and community outreach. Coordinates a bank of connected phones to send SMS at scale for outreach campaigns that would be impossible to do one text at a time.",
+            "https://github.com/SpinellyA/sms-bulker",
+            null,
+            [new Tag("Python"), new Tag("Device Automation"), new Tag("Community Outreach")]
+        ),
+        new(
+            "ExamGrinder",
+            "A study tool built to grind out exam prep, born from one course's worth of last-minute panic.",
+            "A lightweight web-based study tool built to cram for a specific course. Started as a personal exam-prep hack and turned into a small, functional quiz app in its own right.",
+            "https://github.com/SpinellyA/examGrinder",
+            null,
+            [new Tag("JavaScript"), new Tag("React"), new Tag("HTML/CSS")]
+        ),
+    ];
+}
