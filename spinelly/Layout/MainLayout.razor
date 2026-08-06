@@ -15,10 +15,10 @@
             <MudSpacer />
 
             <div class="d-none d-md-flex align-center gap-2">
+                <MudLink Href="#projects" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Projects</MudLink>
                 <MudLink Href="#about" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">About</MudLink>
                 <MudLink Href="#education" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Education</MudLink>
                 <MudLink Href="#skills" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Skills</MudLink>
-                <MudLink Href="#projects" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Projects</MudLink>
                 <MudLink Href="#contact" Underline="Underline.None" Color="Color.Inherit" Class="nav-link">Contact</MudLink>
                 <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" Class="ml-2" />
             </div>
@@ -33,10 +33,10 @@
     <MudDrawer @bind-Open="_drawerOpen" Anchor="Anchor.End" Elevation="2" Variant="DrawerVariant.Temporary">
         <MudNavMenu Class="pa-2">
             <MudNavLink Href="#home" Icon="@Icons.Material.Filled.Home" OnClick="@(() => _drawerOpen = false)">Home</MudNavLink>
+            <MudNavLink Href="#projects" Icon="@Icons.Material.Filled.Work" OnClick="@(() => _drawerOpen = false)">Projects</MudNavLink>
             <MudNavLink Href="#about" Icon="@Icons.Material.Filled.Person" OnClick="@(() => _drawerOpen = false)">About</MudNavLink>
             <MudNavLink Href="#education" Icon="@Icons.Material.Filled.School" OnClick="@(() => _drawerOpen = false)">Education</MudNavLink>
             <MudNavLink Href="#skills" Icon="@Icons.Material.Filled.Code" OnClick="@(() => _drawerOpen = false)">Skills</MudNavLink>
-            <MudNavLink Href="#projects" Icon="@Icons.Material.Filled.Work" OnClick="@(() => _drawerOpen = false)">Projects</MudNavLink>
             <MudNavLink Href="#contact" Icon="@Icons.Material.Filled.Email" OnClick="@(() => _drawerOpen = false)">Contact</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
@@ -86,7 +86,8 @@
 
     private readonly PaletteLight _lightPalette = new()
     {
-        Primary = "#6f5bff",
+        Primary = "#8f7cff",
+        Secondary = "#7fe8d2",
         Black = "#110e2d",
         Background = "#ffffff",
         Surface = "#ffffff",
@@ -99,8 +100,8 @@
 
     private readonly PaletteDark _darkPalette = new()
     {
-        Primary = "#8b7dff",
-        Secondary = "#3ee6c4",
+        Primary = "#b3a6ff",
+        Secondary = "#9ff2dc",
         Surface = "#171522",
         Background = "#0e0d16",
         BackgroundGray = "#12111c",
@@ -117,10 +118,10 @@
         DrawerText = "#c7c5d9",
         GrayLight = "#211f2e",
         GrayLighter = "#171522",
-        Info = "#4a9eff",
-        Success = "#3ee6c4",
-        Warning = "#ffb545",
-        Error = "#ff5f7e",
+        Info = "#8ec2ff",
+        Success = "#9ff2dc",
+        Warning = "#ffcf80",
+        Error = "#ff96a8",
         LinesDefault = "#2a2838",
         TableLines = "#2a2838",
         Divider = "#242236",

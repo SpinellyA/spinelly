@@ -1,0 +1,192 @@
+@* Cassette-tape project showcase: a CRT TV on a tape deck, with a rack of tapes below. *@
+
+<div class="showcase">
+    <div class="showcase-stage @(_selected is null ? "" : "showcase-stage--active")">
+
+        <div class="tv-column">
+            <svg class="tv-antenna" viewBox="0 0 140 48" aria-hidden="true">
+                <line x1="70" y1="46" x2="24" y2="9" />
+                <line x1="70" y1="46" x2="116" y2="9" />
+                <circle cx="24" cy="9" r="4" />
+                <circle cx="116" cy="9" r="4" />
+            </svg>
+
+            <div class="tv-body">
+                <div class="tv-screen">
+                    @if (_selected is null)
+                    {
+                        <div class="tv-static" aria-hidden="true"></div>
+                        <div class="tv-message">No project selected</div>
+                    }
+                    else if (!string.IsNullOrEmpty(_selected.PreviewImage))
+                    {
+                        <img class="tv-media" src="@_selected.PreviewImage" alt="@($"Preview of {_selected.Name}")" />
+                    }
+                    else
+                    {
+                        <div class="tv-titlecard" @key="_selectedIndex">
+                            <span class="tv-titlecard-label">Now playing</span>
+                            <span class="tv-titlecard-name">@_selected.Name</span>
+                        </div>
+                    }
+                    <div class="tv-scanlines" aria-hidden="true"></div>
+                </div>
+
+                <div class="tv-panel">
+                    <span class="tv-brand">spinelly<span class="tv-brand-dot">.</span></span>
+                    <span class="tv-knob"></span>
+                    <span class="tv-knob"></span>
+                </div>
+            </div>
+
+            <div class="deck">
+                <div class="deck-slot">
+                    @if (_selected is null)
+                    {
+                        <span class="deck-empty">Insert a tape</span>
+                    }
+                    else
+                    {
+                        <svg class="deck-reels" viewBox="0 0 140 44" aria-hidden="true">
+                            <rect class="deck-tape" x="2" y="4" width="136" height="36" rx="4" />
+                            <line class="deck-band" x1="34" y1="22" x2="106" y2="22" />
+                            <g class="deck-reel">
+                                <circle cx="42" cy="22" r="13" />
+                                <circle class="deck-reel-hub" cx="42" cy="22" r="5" />
+                                <line x1="42" y1="9" x2="42" y2="35" />
+                                <line x1="29" y1="22" x2="55" y2="22" />
+                            </g>
+                            <g class="deck-reel deck-reel--slow">
+                                <circle cx="98" cy="22" r="13" />
+                                <circle class="deck-reel-hub" cx="98" cy="22" r="5" />
+                                <line x1="98" y1="9" x2="98" y2="35" />
+                                <line x1="85" y1="22" x2="111" y2="22" />
+                            </g>
+                        </svg>
+                    }
+                </div>
+
+                <div class="deck-controls">
+                    <span class="deck-led @(_selected is null ? "" : "deck-led--on")"></span>
+                    <button type="button" class="deck-btn" disabled="@(_selected is null)" @onclick="Eject">
+                        Eject
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-column">
+            @if (_selected is not null)
+            {
+                @* Fixed width + @key: the card never reflows while the column expands,
+                   and a fresh element each selection replays the entrance animation. *@
+                <div class="info-card" @key="_selectedIndex" style="--card-accent: @ColorFor(_selectedIndex)">
+                    <span class="info-spine" aria-hidden="true"></span>
+
+                    <div class="info-body">
+                        <div class="info-top">
+                            <span class="info-track">Track @((_selectedIndex + 1).ToString("00"))</span>
+                            @if (_selected.Featured)
+                            {
+                                <span class="info-flag">Flagship</span>
+                            }
+                        </div>
+
+                        <h3 class="info-title">@_selected.Name</h3>
+                        <span class="info-rule" aria-hidden="true"></span>
+
+                        <p class="info-desc">@(_selected.LongDescription ?? _selected.ShortDescription)</p>
+
+                        <span class="info-legend">Featuring</span>
+                        <div class="skill-chip-row mb-4">
+                            @foreach (var tag in _selected.Tags)
+                            {
+                                <MudTooltip Text="@tag.Description" Disabled="@string.IsNullOrEmpty(tag.Description)">
+                                    <MudChip T="string" Variant="Variant.Text" Color="Color.Secondary" Class="skill-chip">@tag.Name</MudChip>
+                                </MudTooltip>
+                            }
+                        </div>
+
+                        <div class="info-actions">
+                            @if (!string.IsNullOrEmpty(_selected.DemoLink))
+                            {
+                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="@_selected.DemoLink" Target="_blank">
+                                    Live Demo
+                                </MudButton>
+                            }
+                            @if (!string.IsNullOrEmpty(_selected.LandingPageLink))
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="Color.Default"
+                                           StartIcon="@(IsRepoLink(_selected.LandingPageLink) ? Icons.Custom.Brands.GitHub : null)"
+                                           Href="@_selected.LandingPageLink" Target="_blank">
+                                    @(IsRepoLink(_selected.LandingPageLink) ? "View Repo" : "Visit Site")
+                                </MudButton>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="tape-rack">
+        @for (var i = 0; i < Projects.Count; i++)
+        {
+            var index = i;
+            var project = Projects[i];
+            var isSelected = index == _selectedIndex;
+            <button type="button"
+                    class="tape @(isSelected ? "tape--selected" : "")"
+                    style="--tape-color: @ColorFor(index)"
+                    aria-pressed="@isSelected"
+                    title="@project.ShortDescription"
+                    @onclick="() => Select(index)">
+                <span class="tape-float">
+                    <span class="tape-body">
+                        <svg class="tape-svg" viewBox="0 0 200 128" aria-hidden="true">
+                            <rect class="tape-shell" x="3" y="3" width="194" height="122" rx="10" />
+                            <rect class="tape-label" x="16" y="13" width="168" height="52" rx="5" />
+                            <rect class="tape-window" x="42" y="74" width="116" height="40" rx="7" />
+                            <circle class="tape-reel" cx="70" cy="94" r="12" />
+                            <circle class="tape-hub" cx="70" cy="94" r="5" />
+                            <circle class="tape-reel" cx="130" cy="94" r="12" />
+                            <circle class="tape-hub" cx="130" cy="94" r="5" />
+                            <circle class="tape-screw" cx="13" cy="13" r="2.5" />
+                            <circle class="tape-screw" cx="187" cy="13" r="2.5" />
+                            <circle class="tape-screw" cx="13" cy="115" r="2.5" />
+                            <circle class="tape-screw" cx="187" cy="115" r="2.5" />
+                        </svg>
+                        <span class="tape-label-text">
+                            <span class="tape-name">@project.Name</span>
+                            <span class="tape-side">@(project.Featured ? "Side A · Flagship" : "Side A")</span>
+                        </span>
+                    </span>
+                </span>
+            </button>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public List<ProjectEntry> Projects { get; set; } = [];
+
+    private static readonly string[] TapeColors =
+        ["#b3a6ff", "#9ff2dc", "#ffcf80", "#8ec2ff", "#ff96a8"];
+
+    private int _selectedIndex = -1;
+
+    private ProjectEntry? _selected =>
+        _selectedIndex >= 0 && _selectedIndex < Projects.Count ? Projects[_selectedIndex] : null;
+
+    private void Select(int index) =>
+        _selectedIndex = index == _selectedIndex ? -1 : index;
+
+    private void Eject() => _selectedIndex = -1;
+
+    private static string ColorFor(int index) =>
+        TapeColors[((index % TapeColors.Length) + TapeColors.Length) % TapeColors.Length];
+
+    private static bool IsRepoLink(string url) =>
+        url.Contains("github.com", StringComparison.OrdinalIgnoreCase);
+}

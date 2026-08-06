@@ -7,5 +7,6 @@ public record ProjectEntry(
     string? LandingPageLink,
     string? DemoLink,
     List<Tag> Tags,
+    string? PreviewImage = null,
     bool Featured = false
 );
