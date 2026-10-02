@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T00:00:00Z",
+  "title": "Design System: Channel Spinelly",
+  "extensions": {
+    "colorMeta": {
+      "strap-violet": { "role": "primary", "displayName": "Strap Violet", "canonical": "#b3a6ff", "tonalRamp": ["#1e1840", "#2f2566", "#42358f", "#5b47d6", "#7c6bf0", "#9a8cfb", "#b3a6ff", "#e3deff"] },
+      "strap-teal": { "role": "secondary", "displayName": "Strap Teal", "canonical": "#9ff2dc", "tonalRamp": ["#0b2e26", "#10493c", "#0f6b57", "#0f8f78", "#3fc4a6", "#6fe0c4", "#9ff2dc", "#dcfbf2"] },
+      "honor-amber": { "role": "tertiary", "displayName": "Honor Amber", "canonical": "#ffcf80", "tonalRamp": ["#2a1d00", "#4a3300", "#6e4d05", "#94690f", "#c48a1f", "#eba944", "#ffcf80", "#fff0d6"] },
+      "tally-red-dark": { "role": "tertiary", "displayName": "Tally Red (dark theme)", "canonical": "#ff4d5e", "tonalRamp": ["#3a070d", "#5e0d16", "#8a1220", "#b81b2c", "#e0303f", "#ff4d5e", "#ff8a95", "#ffdadd"] },
+      "tally-red-light": { "role": "tertiary", "displayName": "Tally Red (light theme)", "canonical": "#e0303f", "tonalRamp": ["#3a070d", "#5e0d16", "#8a1220", "#b81b2c", "#e0303f", "#ff4d5e", "#ff8a95", "#ffdadd"] },
+      "accent-ink-dark": { "role": "primary", "displayName": "Accent Ink (dark theme)", "canonical": "#b3a6ff", "tonalRamp": ["#1e1840", "#2f2566", "#42358f", "#5b47d6", "#7c6bf0", "#9a8cfb", "#b3a6ff", "#e3deff"] },
+      "accent-ink-light": { "role": "primary", "displayName": "Accent Ink (light theme)", "canonical": "#5b47d6", "tonalRamp": ["#1e1840", "#2f2566", "#42358f", "#5b47d6", "#7c6bf0", "#9a8cfb", "#b3a6ff", "#e3deff"] },
+      "strap-ink": { "role": "neutral", "displayName": "Strap Ink", "canonical": "#13111d", "tonalRamp": ["#0b0a12", "#13111d", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#d3cfe5", "#f3f2f8"] },
+      "studio-black": { "role": "neutral", "displayName": "Studio Black", "canonical": "#0f0e16", "tonalRamp": ["#0b0a12", "#0f0e16", "#15131f", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "studio-band": { "role": "neutral", "displayName": "Studio Band", "canonical": "#15131f", "tonalRamp": ["#0b0a12", "#0f0e16", "#15131f", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "console-panel": { "role": "neutral", "displayName": "Console Panel", "canonical": "#1c1a29", "tonalRamp": ["#0b0a12", "#0f0e16", "#15131f", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "console-panel-deep": { "role": "neutral", "displayName": "Console Panel Deep", "canonical": "#12111b", "tonalRamp": ["#0b0a12", "#12111b", "#15131f", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "rack-line": { "role": "neutral", "displayName": "Rack Line", "canonical": "#2b2840", "tonalRamp": ["#0b0a12", "#0f0e16", "#1c1a29", "#2b2840", "#3a3652", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "phosphor-white": { "role": "neutral", "displayName": "Phosphor White", "canonical": "#eceafc", "tonalRamp": ["#0f0e16", "#1c1a29", "#2b2840", "#4f4b63", "#8b87a6", "#a9a5c4", "#d3cfe5", "#eceafc"] },
+      "phosphor-dim": { "role": "neutral", "displayName": "Phosphor Dim", "canonical": "#a9a5c4", "tonalRamp": ["#0f0e16", "#1c1a29", "#2b2840", "#4f4b63", "#8b87a6", "#a9a5c4", "#d3cfe5", "#eceafc"] },
+      "screen-black": { "role": "neutral", "displayName": "Screen Black", "canonical": "#0b0a12", "tonalRamp": ["#0b0a12", "#0f0e16", "#15131f", "#1c1a29", "#2b2840", "#4f4b63", "#a9a5c4", "#eceafc"] },
+      "daylight-ground": { "role": "neutral", "displayName": "Daylight Ground", "canonical": "#f3f2f8", "tonalRamp": ["#16141f", "#4f4b63", "#a9a5c4", "#d3cfe5", "#e8e6f2", "#eceaf5", "#f3f2f8", "#ffffff"] },
+      "daylight-band": { "role": "neutral", "displayName": "Daylight Band", "canonical": "#e8e6f2", "tonalRamp": ["#16141f", "#4f4b63", "#a9a5c4", "#d3cfe5", "#e8e6f2", "#eceaf5", "#f3f2f8", "#ffffff"] },
+      "daylight-panel": { "role": "neutral", "displayName": "Daylight Panel", "canonical": "#ffffff", "tonalRamp": ["#16141f", "#4f4b63", "#a9a5c4", "#d3cfe5", "#e8e6f2", "#eceaf5", "#f3f2f8", "#ffffff"] },
+      "daylight-panel-deep": { "role": "neutral", "displayName": "Daylight Panel Deep", "canonical": "#eceaf5", "tonalRamp": ["#16141f", "#4f4b63", "#a9a5c4", "#d3cfe5", "#e8e6f2", "#eceaf5", "#f3f2f8", "#ffffff"] },
+      "daylight-line": { "role": "neutral", "displayName": "Daylight Line", "canonical": "#d3cfe5", "tonalRamp": ["#16141f", "#4f4b63", "#a9a5c4", "#d3cfe5", "#e8e6f2", "#eceaf5", "#f3f2f8", "#ffffff"] },
+      "daylight-ink": { "role": "neutral", "displayName": "Daylight Ink", "canonical": "#16141f", "tonalRamp": ["#16141f", "#2b2840", "#4f4b63", "#8b87a6", "#a9a5c4", "#d3cfe5", "#eceaf5", "#f3f2f8"] },
+      "daylight-ink-dim": { "role": "neutral", "displayName": "Daylight Ink Dim", "canonical": "#4f4b63", "tonalRamp": ["#16141f", "#2b2840", "#4f4b63", "#8b87a6", "#a9a5c4", "#d3cfe5", "#eceaf5", "#f3f2f8"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Ident", "purpose": "The presenter's name in the ident, and the wordmark (1.3rem). Wide 125%." },
+      "headline": { "displayName": "Strap", "purpose": "Section heading set inside a violet lower-third strap. Condensed 76%, max 24ch." },
+      "headline-xl": { "displayName": "Strap XL", "purpose": "Sign-off strap only. Max 14ch." },
+      "title": { "displayName": "Slot Title", "purpose": "Schedule row titles; pull-quote lines use 800 at width 110%." },
+      "body": { "displayName": "Body", "purpose": "Running copy in secondary ink, 60 to 68ch." },
+      "label": { "displayName": "Label", "purpose": "Uppercase condensed Archivo for strap tags, fact keys, legends, deck buttons and honor chips." },
+      "mono": { "displayName": "Clock", "purpose": "Martian Mono with tabular figures for the bug-bar clock, NOW field and schedule periods only." }
+    },
+    "shadows": [],
+    "textures": [
+      { "name": "crt-scanlines", "value": "repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px)", "purpose": "The one sanctioned gradient: laid over the presenter monitor and TV screens only." },
+      { "name": "tv-static", "value": "SVG feTurbulence fractalNoise, 160px tile, opacity 0.45, stepped 0.14s position jitter", "purpose": "Empty TV screen." }
+    ],
+    "motion": [
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for every transition and entrance." },
+      { "name": "strap-wipe", "value": "clip-path: inset(0 100% 0 0) to inset(0 0 0 0)", "purpose": "Lower thirds wipe in left to right: 0.6s on load for the presenter strap, scroll-linked via view() for section straps." },
+      { "name": "underline-scale", "value": "transform: scaleX(0 to 1), origin left, 0.35s", "purpose": "Active programme underline." },
+      { "name": "tape-lift", "value": "translateY(-8px) rotate(-1.5deg) on hover, translateY(-12px) selected, 0.35s", "purpose": "Tapes lift instead of casting shadow." },
+      { "name": "card-in", "value": "opacity 0 to 1, translateX(14px to 0), 0.45s", "purpose": "Info card entrance." },
+      { "name": "caret-blink", "value": "0.9s steps(1) infinite", "purpose": "Typing caret in the ident." },
+      { "name": "reduced-motion", "value": "animation: none; transition: none", "purpose": "All animations and the nav sheet transition are disabled under prefers-reduced-motion: reduce." }
+    ],
+    "breakpoints": [
+      { "name": "wide", "value": "1100px" },
+      { "name": "stack", "value": "960px" },
+      { "name": "phone", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call to action: square violet strap with strap ink, teal on hover.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">View My Work</a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 46px; padding: 0.7rem 1.25rem; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 700; font-stretch: 92%; font-size: 1rem; line-height: 1.1; text-decoration: none; border: 2px solid transparent; border-radius: 0; cursor: pointer; box-sizing: border-box; transition: background-color 0.2s cubic-bezier(0.16,1,0.3,1), color 0.2s cubic-bezier(0.16,1,0.3,1), border-color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid #9ff2dc; outline-offset: 3px; } .ds-btn-primary { background: #b3a6ff; color: #13111d; } .ds-btn-primary:hover { background: #9ff2dc; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action: 2px ink outline that floods with ink on hover.",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\">Get In Touch</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; min-height: 46px; padding: 0.7rem 1.25rem; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 700; font-stretch: 92%; font-size: 1rem; line-height: 1.1; text-decoration: none; background: transparent; color: #eceafc; border: 2px solid #eceafc; border-radius: 0; box-sizing: border-box; transition: background-color 0.2s cubic-bezier(0.16,1,0.3,1), color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-btn-ghost:hover { background: #eceafc; color: #0f0e16; } .ds-btn-ghost:active { transform: translateY(1px); } .ds-btn-ghost:focus-visible { outline: 2px solid #9ff2dc; outline-offset: 3px; }"
+    },
+    {
+      "name": "Lower-Third Strap Heading",
+      "kind": "custom",
+      "refersTo": "strap-title",
+      "description": "Section heading as a violet bar cut tight to the words, with an optional teal fact tier.",
+      "html": "<header class=\"ds-strap\"><h2 class=\"ds-strap-title\"><span>Academic background</span></h2><span class=\"ds-strap-tag\">2018 to present</span></header>",
+      "css": ".ds-strap { display: flex; flex-direction: column; align-items: flex-start; } .ds-strap-title { margin: 0; max-width: 24ch; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 850; font-stretch: 76%; line-height: 1.22; letter-spacing: -0.025em; } .ds-strap-title span { background: #b3a6ff; color: #13111d; padding: 0.04em 0.32em 0.08em; -webkit-box-decoration-break: clone; box-decoration-break: clone; } .ds-strap-tag { margin-left: 0.6em; padding: 0.4rem 0.8rem; background: #9ff2dc; color: #13111d; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: 0.74rem; font-stretch: 90%; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }"
+    },
+    {
+      "name": "Station Bug Nav",
+      "kind": "nav",
+      "refersTo": "bug-button",
+      "description": "Sticky top bar: wordmark, programme links with a violet active underline, NOW strap, clock and square icon button.",
+      "html": "<header class=\"ds-bug\"><a class=\"ds-wordmark\" href=\"#\">spinelly<span>.</span></a><nav class=\"ds-programmes\"><a href=\"#\" class=\"is-now\">Projects</a><a href=\"#\">About</a><a href=\"#\">Skills</a></nav><span class=\"ds-now\"><span class=\"ds-now-label\">Now</span><span class=\"ds-now-text\">Projects</span></span><span class=\"ds-clock\">Cebu <time>21:40</time></span><button class=\"ds-bug-btn\" aria-label=\"Toggle theme\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z\"/></svg></button></header>",
+      "css": ".ds-bug { display: flex; align-items: center; gap: 1.5rem; height: 60px; padding: 0 16px; background: #0f0e16; color: #eceafc; border-bottom: 1px solid #2b2840; font-family: 'Archivo', Helvetica, Arial, sans-serif; } .ds-wordmark { font-weight: 850; font-stretch: 125%; font-size: 1.3rem; letter-spacing: -0.02em; color: inherit; text-decoration: none; } .ds-wordmark span { color: #b3a6ff; } .ds-programmes { display: flex; gap: 0.25rem; margin-right: auto; } .ds-programmes a { position: relative; padding: 0.45rem 0.7rem; font-weight: 600; font-stretch: 88%; font-size: 0.98rem; color: #a9a5c4; text-decoration: none; transition: color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-programmes a:hover, .ds-programmes a.is-now { color: #eceafc; } .ds-programmes a::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.1rem; height: 3px; background: #b3a6ff; transform: scaleX(0); transform-origin: left; transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); } .ds-programmes a.is-now::after { transform: scaleX(1); } .ds-programmes a:focus-visible, .ds-bug-btn:focus-visible { outline: 2px solid #9ff2dc; outline-offset: 3px; } .ds-now, .ds-clock { font-family: 'Martian Mono', ui-monospace, Consolas, monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; } .ds-now { display: inline-flex; align-items: stretch; background: #b3a6ff; color: #13111d; font-weight: 700; } .ds-now-label { display: inline-flex; align-items: center; padding: 0 0.5rem; background: #13111d; color: #b3a6ff; border: 1px solid #b3a6ff; } .ds-now-text { padding: 0.35rem 0.6rem; } .ds-clock { margin-left: -1.5rem; padding: 0.35rem 0.6rem; border: 1px solid #2b2840; border-left: none; color: #a9a5c4; } .ds-clock time { color: #eceafc; font-variant-numeric: tabular-nums; } .ds-bug-btn { display: inline-flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; color: #eceafc; background: transparent; border: 1px solid #2b2840; border-radius: 0; cursor: pointer; transition: border-color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-bug-btn:hover { border-color: #b3a6ff; } .ds-bug-btn:active { transform: translateY(1px); }"
+    },
+    {
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Skill or stack tag: square, hairline border, accent border on hover; reluctant variant is dashed and dimmed.",
+      "html": "<span class=\"ds-tag\" tabindex=\"0\">Blazor</span> <span class=\"ds-tag ds-tag-reluctant\" tabindex=\"0\">JavaScript</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.75rem; border: 1px solid #2b2840; background: #0f0e16; color: #eceafc; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-weight: 600; font-size: 0.95rem; line-height: 1.2; border-radius: 0; transition: border-color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-tag:hover { border-color: #b3a6ff; } .ds-tag:focus-visible { outline: 2px solid #9ff2dc; outline-offset: 3px; } .ds-tag-reluctant { border-style: dashed; color: #a9a5c4; }"
+    },
+    {
+      "name": "Honor Chip",
+      "kind": "chip",
+      "refersTo": "honor-chip",
+      "description": "Award or status flag in solid amber with dark brown text.",
+      "html": "<span class=\"ds-honor\">Graduated with High Honors</span>",
+      "css": ".ds-honor { display: inline-flex; align-items: center; padding: 0.35rem 0.65rem; background: #ffcf80; color: #2a1d00; font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: 0.7rem; font-weight: 700; font-stretch: 90%; text-transform: uppercase; letter-spacing: 0.03em; border-radius: 0; }"
+    },
+    {
+      "name": "Info Card",
+      "kind": "card",
+      "refersTo": "hardware-chassis",
+      "description": "Project liner notes: square panel, track number with LIVE tally, project name as a strap in the tape's colour.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-top\"><span class=\"ds-card-track\">Track 02</span><span class=\"ds-card-live\"><span class=\"ds-tally\"></span>Live</span></div><h3 class=\"ds-card-title\"><span>UPCSG Website</span></h3><p class=\"ds-card-desc\">The official site for UP Cebu's Computer Science Guild, with a real merch store and a full admin CMS behind it.</p></article>",
+      "css": ".ds-card { max-width: 460px; padding: 1.5rem 1.6rem; background: #1c1a29; border: 1px solid #2b2840; border-radius: 0; color: #eceafc; font-family: 'Archivo', Helvetica, Arial, sans-serif; } .ds-card-top { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; } .ds-card-track { color: #a9a5c4; margin-right: auto; } .ds-card-live { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.2rem 0.45rem; border: 1px solid #ff4d5e; color: #ff4d5e; } .ds-tally { width: 7px; height: 7px; border-radius: 50%; background: #ff4d5e; } .ds-card-title { margin: 0 0 1rem; font-size: 2.15rem; font-weight: 850; font-stretch: 78%; line-height: 1.2; letter-spacing: -0.02em; } .ds-card-title span { background: #9ff2dc; color: #13111d; padding: 0.02em 0.3em 0.06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; } .ds-card-desc { margin: 0; color: #a9a5c4; line-height: 1.65; font-size: 0.95rem; }"
+    },
+    {
+      "name": "Presenter Monitor",
+      "kind": "custom",
+      "refersTo": "hardware-chassis",
+      "description": "4:3 screen in a 6px-cornered bezel with scanlines and an overhanging two-tier lower third.",
+      "html": "<figure class=\"ds-monitor\"><div class=\"ds-monitor-screen\"><span class=\"ds-scan\"></span></div><figcaption class=\"ds-lt\"><span class=\"ds-lt-name\">Alex Sam Cabildo</span><span class=\"ds-lt-role\">BS Computer Science · UP Cebu</span></figcaption></figure>",
+      "css": ".ds-monitor { position: relative; max-width: 360px; margin: 0 0 2.5rem 1.25rem; padding: 14px; background: #1c1a29; border: 1px solid #2b2840; border-radius: 6px; font-family: 'Archivo', Helvetica, Arial, sans-serif; } .ds-monitor-screen { position: relative; aspect-ratio: 4 / 3; overflow: hidden; background: #0b0a12; border-radius: 3px; } .ds-scan { position: absolute; inset: 0; background-image: repeating-linear-gradient(to bottom, rgba(0,0,0,0.18) 0px, rgba(0,0,0,0.18) 1px, transparent 1px, transparent 3px); } .ds-lt { position: absolute; left: -1.25rem; bottom: -2rem; display: flex; flex-direction: column; align-items: flex-start; } .ds-lt-name { padding: 0.4rem 0.9rem 0.35rem; background: #b3a6ff; color: #13111d; font-weight: 850; font-stretch: 80%; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.01em; animation: ds-wipe 0.6s cubic-bezier(0.16,1,0.3,1) 0.35s both; } .ds-lt-role { margin-left: 0.9rem; padding: 0.35rem 0.75rem; background: #9ff2dc; color: #13111d; font-size: 0.72rem; font-stretch: 90%; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; animation: ds-wipe 0.55s cubic-bezier(0.16,1,0.3,1) 0.55s both; } @keyframes ds-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } } @media (prefers-reduced-motion: reduce) { .ds-lt-name, .ds-lt-role { animation: none; } }"
+    },
+    {
+      "name": "Deck Button",
+      "kind": "button",
+      "refersTo": "deck-button",
+      "description": "Hardware control on the tape deck: 3px corners, uppercase label, violet border on hover.",
+      "html": "<button class=\"ds-deck-btn\">Eject</button>",
+      "css": ".ds-deck-btn { font-family: 'Archivo', Helvetica, Arial, sans-serif; font-size: 0.66rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #eceafc; background: #1c1a29; border: 1px solid #2b2840; border-radius: 3px; padding: 0.5rem 0.7rem; cursor: pointer; transition: border-color 0.2s cubic-bezier(0.16,1,0.3,1); } .ds-deck-btn:hover { border-color: #b3a6ff; } .ds-deck-btn:focus-visible { outline: 2px solid #9ff2dc; outline-offset: 3px; } .ds-deck-btn:disabled { opacity: 0.4; cursor: default; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Channel Spinelly",
+    "overview": "The portfolio is a broadcast channel. Sections are programmes, the sticky top bar is the station bug that always says what is on, and projects are tapes aired on a house TV that sits on a tape deck. Headings are not set as type on a page; they are lower-third straps, solid violet bars cut tight to the words, with an optional teal second tier underneath that carries a real fact. Everything that reads as on-air graphics is flat and square; everything that reads as physical hardware (monitor, TV, deck, knobs) gets soft 6px corners and a hairline frame.\n\nDensity is generous between programmes and tight inside them: big section padding, then ruled schedules and lineups with hairline row dividers and a heavy 3px top rule. The ground is studio black in dark mode (the default) and a cool lavender-white in light mode; the straps keep exactly the same colours on either ground, as real broadcast graphics do. Motion is broadcast motion: straps wipe in left to right, the TV shows static, reels spin, a caret types the presenter's name.\n\nThe world refuses the dark-hero-plus-card-grid developer portfolio, gradients (other than the CRT scanline texture on screens), glows, and coloured hard-offset shadows.",
+    "keyCharacteristics": [
+      "Violet lower-third straps carry every section heading; the teal tier is a fact or is omitted.",
+      "Square graphics, 6px hardware.",
+      "Wide Archivo for idents and wordmark, condensed Archivo for straps, Martian Mono only for clocks and timecodes.",
+      "Flat surfaces, depth from hairlines and tonal grounds, never from shadow.",
+      "Tally red means LIVE and nothing else.",
+      "Straps are theme-invariant; grounds, panels, lines and ink swap per theme."
+    ],
+    "rules": [
+      { "name": "The Straps Don't Change Rule", "body": "Violet, teal, amber and strap ink are declared once on the channel root and are identical in dark and light themes. Only ground, panel, line, ink and accent-ink swap.", "section": "colors" },
+      { "name": "The Tally Rule", "body": "Red means live. If a thing is not currently on air, it does not get red.", "section": "colors" },
+      { "name": "The Ink-On-Strap Rule", "body": "Text on a violet, teal or amber fill is always strap ink (amber uses its brown). Never white, never theme ink.", "section": "colors" },
+      { "name": "The Stretch Axis Rule", "body": "Hierarchy is carried by width as much as size: wide (110 to 125%) for identity, normal for titles, condensed (76 to 90%) for anything inside a strap or label. Do not fake condensing with letter-spacing.", "section": "typography" },
+      { "name": "The Clock-Only Mono Rule", "body": "Martian Mono is for times and dates. Labels are condensed Archivo.", "section": "typography" },
+      { "name": "The No-Glow Rule", "body": "No box-shadow, text-shadow, blur or glow on any channel surface, and no coloured hard-offset shadows. If something needs to stand out, give it a strap.", "section": "elevation" },
+      { "name": "The Scanline Exception Rule", "body": "The only gradient in the system is the CRT scanline texture (1px of 18% black every 3px) laid over screens: the presenter monitor and the TV. No other gradient, anywhere.", "section": "elevation" },
+      { "name": "The Square Graphics, Round Hardware Rule", "body": "On-air graphics are square: straps, tags, chips, buttons, the info card, tooltips (MudBlazor's default radius is forced to 0). Physical equipment gets the hardware radius (6px) on its outer chassis and 3px on screens, the deck slot and deck buttons. True circles are reserved for hardware controls: TV buttons, knobs, LEDs, slider thumbs, the tally dot.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do head every programme with a violet strap title; add the teal tier only when it states a real fact (a count, a date range, an availability).",
+      "Do keep straps theme-invariant and set strap text in strap ink.",
+      "Do use the width axis for hierarchy: 125% for identity, 76 to 80% for straps, 88 to 92% for UI labels.",
+      "Do frame hardware with 6px corners and a 1px rack line; keep graphics square.",
+      "Do use the shared ease-out (cubic-bezier(0.16, 1, 0.3, 1)) and wipe-style entrances, and disable every animation under prefers-reduced-motion.",
+      "Do preserve the owner's copy verbatim, in his voice.",
+      "Do stay in Blazor/.NET and MudBlazor, restyling MudBlazor components to the channel; reach for JS interop only where Blazor cannot (media playback, the scroll observer)."
+    ],
+    "donts": [
+      "Don't use gradients. The CRT scanline texture on screens is the one sanctioned exception.",
+      "Don't use glows, blurs, or coloured hard-offset shadows.",
+      "Don't use red for anything but LIVE.",
+      "Don't put Martian Mono on labels or body; it is for clocks and timecodes.",
+      "Don't lay projects or skills out as a card grid; they are tapes, schedules and lineups.",
+      "Don't put em-dashes in copy.",
+      "Don't put decorative uppercase labels above section headings; the strap's teal tier is the only secondary heading line, and a label over a title must carry live state or a real fact (track number, LIVE, Now playing)."
+    ]
+  }
+}

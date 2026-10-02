@@ -1,200 +1,197 @@
 @page "/"
-@using BlazorAnimate
+@inject IJSRuntime JS
 
 <PageTitle>Sup - am Spinelly</PageTitle>
 
-<section id="home" class="hero">
-    <MudContainer MaxWidth="MaxWidth.Large">
-        <MudGrid Class="align-center">
-            <MudItem xs="12" md="7">
-                <MudText Typo="Typo.subtitle1" Class="hero-kicker">
-                    @_kickerText<span class="typing-caret @(_caretOnKicker ? "" : "typing-caret-hidden")"></span>
-                </MudText>
-                <MudText Typo="Typo.h1" Class="hero-title">
-                    @_nameBase<span class="@(_suffixHighlighted ? "typing-highlight" : "")">@_nameSuffix</span><span class="typing-caret @(_caretOnName ? "" : "typing-caret-hidden")"></span>
-                </MudText>
-                <MudText Typo="Typo.h5" Class="hero-subtitle">Full-Stack Developer &amp; 3rd-Year CS Major</MudText>
-                <MudText Typo="Typo.body1" Class="hero-desc">
-                    <span class="hero-emphasis">Nothing stops me and my vision. It will happen.</span>
-                    I live in .NET, and systems architecture and design is where I do my best thinking. <br/>
-                    I build software that transforms experiences, brings in people, and boosts productivity.<br/> This means software such as my recently founded <strong>Bursaria</strong>,
-                    a highly complex Scholarship Management System that aims to solve the core problems of today's workflows.
-                </MudText>
-                <div class="hero-actions">
-                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Large" Href="#projects" Class="rounded-lg">
-                        View My Work
-                    </MudButton>
-                    <MudButton Variant="Variant.Outlined" Color="Color.Default" Size="Size.Large" Href="#contact" Class="rounded-lg">
-                        Get In Touch
-                    </MudButton>
-                </div>
-                <MudText Typo="Typo.body2" Class="hero-note mt-4">
-                    Curious about the person behind the code? Reach out. I don't bite, and I'll gladly go down a
-                    rabbit hole with you on just about anything.
-                </MudText>
-            </MudItem>
-            <MudItem xs="12" md="5" Class="d-flex justify-center justify-md-end">
-                <div class="hero-photo-frame">
-                    <img src="images/profile.jpg" alt="Portrait photo" class="hero-photo" />
-                </div>
-            </MudItem>
-        </MudGrid>
-    </MudContainer>
+<section id="home" class="ident">
+    <div class="wrap ident-grid">
+        <div class="ident-copy">
+            <p class="ident-kicker">
+                @_kickerText<span class="typing-caret @(_caretOnKicker ? "" : "typing-caret-hidden")"></span>
+            </p>
+            <h1 class="ident-name">
+                @_nameBase<span class="ident-suffix @(_suffixHighlighted ? "typing-highlight" : "")">@_nameSuffix</span><span class="typing-caret @(_caretOnName ? "" : "typing-caret-hidden")"></span>
+            </h1>
+            <p class="ident-role">Full-Stack Developer &amp; 3rd-Year CS Major</p>
+
+            <p class="ident-emphasis">Nothing stops me and my vision. It will happen.</p>
+            <p class="ident-desc">
+                I live in .NET, and systems architecture and design is where I do my best thinking.
+                I build software that transforms experiences, brings in people, and boosts productivity. This means software such as my recently founded <strong>Bursaria</strong>,
+                a highly complex Scholarship Management System that aims to solve the core problems of today's workflows.
+            </p>
+
+            <div class="actions">
+                <a class="btn btn-primary" href="#projects">View My Work</a>
+                <a class="btn btn-ghost" href="#contact">Get In Touch</a>
+            </div>
+
+            <p class="ident-note">
+                Curious about the person behind the code? Reach out. I don't bite, and I'll gladly go down a
+                rabbit hole with you on just about anything.
+            </p>
+        </div>
+
+        <figure class="monitor">
+            <div class="monitor-screen">
+                <img src="images/profile.jpg" alt="Portrait of Alex Sam Cabildo" />
+                <span class="monitor-scanlines" aria-hidden="true"></span>
+            </div>
+            <figcaption class="lower-third">
+                <span class="lt-name">Alex Sam Cabildo</span>
+                <span class="lt-role">BS Computer Science · UP Cebu</span>
+            </figcaption>
+        </figure>
+    </div>
 </section>
 
-<section id="projects" class="section section-alt">
-    <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.overline" Class="section-kicker">Projects</MudText>
-        <MudText Typo="Typo.h3" Class="section-title mb-2">Featured work</MudText>
-        <MudText Typo="Typo.body1" Class="showcase-hint mb-6">
+<section id="projects" class="section section-band">
+    <div class="wrap">
+        <header class="strap">
+            <h2 class="strap-title"><span>Featured work</span></h2>
+            <span class="strap-tag">@_projects.Count tapes · @_projects.Count(p => p.Live) live</span>
+        </header>
+        <p class="section-lede">
             One good thing about creating something is that it persists through the greed of time.
             That's the soul of my video creation hobby. Here are some of my favorite projects. Please select a tape to play it.
-        </MudText>
+        </p>
 
         <ProjectShowcase Projects="_projects" />
-    </MudContainer>
+    </div>
 </section>
 
 <section id="about" class="section">
-    <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.overline" Class="section-kicker">About</MudText>
-        <MudText Typo="Typo.h3" Class="section-title mb-6">Software? Coding? No, I aspire to create.</MudText>
+    <div class="wrap">
+        <header class="strap">
+            <h2 class="strap-title"><span>Software? Coding? No, I aspire to create.</span></h2>
+        </header>
 
-        <MudGrid>
-            <MudItem xs="12" md="7">
-                <Animate Animation="Animations.FadeRight" Duration="TimeSpan.FromSeconds(0.6)">
-                    <MudText Typo="Typo.body1" Class="about-text">
-                        My main passion is creation, not just code. Everyone says it these days: "I love coding," or "I love engineering software", it's the same tired line.
-                        But what I actually care about is taking a rough idea and turning it into something people can use.
-                        There's something deeply special about watching an idea of mine actually change how people work, and knowing my name is on that outcome.
-                        <br />That's why my projects are built FOR users, not just some pretentious attempt at ambitious innovation. The same drive extends
-                        past my code; it's why I make YouTube videos, write, and pick up whatever skill a project actually needs.
-                    </MudText>
-                    <br />
-                    <MudText Typo="Typo.body1" Class="about-text">
-                        Tell me, reader. What soul does software have if it doesn't solve people's problems?
-                    </MudText>
-                </Animate>
-            </MudItem>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    My main passion is creation, not just code. Everyone says it these days: "I love coding," or "I love engineering software", it's the same tired line.
+                    But what I actually care about is taking a rough idea and turning it into something people can use.
+                    There's something deeply special about watching an idea of mine actually change how people work, and knowing my name is on that outcome.
+                </p>
+                <p>
+                    That's why my projects are built FOR users, not just some pretentious attempt at ambitious innovation. The same drive extends
+                    past my code; it's why I make YouTube videos, write, and pick up whatever skill a project actually needs.
+                </p>
+                <p class="about-question">Tell me, reader. What soul does software have if it doesn't solve people's problems?</p>
+            </div>
 
-            <MudItem xs="12" md="5">
-                <Animate Animation="Animations.FadeLeft" Duration="TimeSpan.FromSeconds(0.6)" Delay="TimeSpan.FromSeconds(0.15)">
-                    <MudPaper Class="pa-6 about-card" Elevation="0">
-                        <MudText Typo="Typo.subtitle2" Class="mb-3">Quick Facts</MudText>
-                        <MudList T="string" Dense="true" Padding="false">
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.School">3rd-Year CS Major</MudListItem>
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.LocationOn">Cebu, Philippines</MudListItem>
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.Code">.NET Purist (C#)</MudListItem>
-                            @* <MudListItem T="string" Icon="@Icons.Material.Filled.Rocket">Building Bursaria (SaaS)</MudListItem> *@
-                            <MudListItem T="string" Icon="@Icons.Material.Filled.PlayCircle">YouTube Creator (2K+ Subs)</MudListItem>
-                        </MudList>
-                    </MudPaper>
-                </Animate>
-            </MudItem>
-        </MudGrid>
-    </MudContainer>
+            <aside class="facts" aria-labelledby="facts-title">
+                <h3 id="facts-title" class="facts-title">Quick Facts</h3>
+                <dl>
+                    <div><dt>Year</dt><dd>3rd-Year CS Major</dd></div>
+                    <div><dt>Based in</dt><dd>Cebu, Philippines</dd></div>
+                    <div><dt>Stack</dt><dd>.NET Purist (C#)</dd></div>
+                    <div><dt>Channel</dt><dd>YouTube Creator (2K+ Subs)</dd></div>
+                </dl>
+            </aside>
+        </div>
+    </div>
 </section>
 
-<section id="education" class="section section-alt">
-    <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.overline" Class="section-kicker">Education</MudText>
-        <MudText Typo="Typo.h3" Class="section-title mb-6">Academic background</MudText>
+<section id="education" class="section section-band">
+    <div class="wrap">
+        <header class="strap">
+            <h2 class="strap-title"><span>Academic background</span></h2>
+            <span class="strap-tag">2018 to present</span>
+        </header>
 
-        <div class="edu-timeline">
-            @for (var i = 0; i < _education.Count; i++)
+        <ol class="schedule">
+            @foreach (var entry in _education)
             {
-                var entry = _education[i];
-                <Animate Animation="Animations.FadeUp" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(i * 0.1)">
-                    <div class="edu-item">
-                        <div class="edu-marker"></div>
-                        <div class="edu-content">
-                            <div class="d-flex align-center gap-3">
-                                <div class="edu-logo-wrap">
-                                    @if (!string.IsNullOrEmpty(entry.LogoUrl))
-                                    {
-                                        <img src="@entry.LogoUrl" alt="@entry.Institution logo" class="edu-logo" />
-                                    }
-                                    else
-                                    {
-                                        <MudIcon Icon="@Icons.Material.Filled.School" Color="Color.Primary" />
-                                    }
-                                </div>
-                                <div>
-                                    <MudText Typo="Typo.overline" Color="Color.Primary">@entry.Period</MudText>
-                                    <MudText Typo="Typo.h6" Class="mb-0">@entry.Title</MudText>
-                                </div>
-                            </div>
-                            <MudText Typo="Typo.subtitle2" Class="edu-school mt-2 mb-2">@entry.Institution</MudText>
-                            @if (!string.IsNullOrEmpty(entry.Description))
-                            {
-                                <MudText Typo="Typo.body2" Class="edu-desc">@entry.Description</MudText>
-                            }
-                            @if (entry.Highlights.Count > 0)
-                            {
-                                <div class="skill-chip-row mt-3">
-                                    @foreach (var highlight in entry.Highlights)
-                                    {
-                                        <MudTooltip Text="@highlight.Description" Disabled="@string.IsNullOrEmpty(highlight.Description)">
-                                            <MudChip T="string" Variant="Variant.Filled" Size="Size.Small" Icon="@Icons.Material.Filled.WorkspacePremium" Class="honor-chip">@highlight.Name</MudChip>
-                                        </MudTooltip>
-                                    }
-                                </div>
-                            }
-                        </div>
+                <li class="slot">
+                    <span class="slot-time">@entry.Period</span>
+                    <span class="slot-logo">
+                        @if (!string.IsNullOrEmpty(entry.LogoUrl))
+                        {
+                            <img src="@entry.LogoUrl" alt="@entry.Institution logo" />
+                        }
+                    </span>
+                    <div class="slot-body">
+                        <h3 class="slot-title">@entry.Title</h3>
+                        <p class="slot-school">@entry.Institution</p>
+                        @if (!string.IsNullOrEmpty(entry.Description))
+                        {
+                            <p class="slot-desc">@entry.Description</p>
+                        }
+                        @if (entry.Highlights.Count > 0)
+                        {
+                            <ul class="honors" aria-label="Honors">
+                                @foreach (var highlight in entry.Highlights)
+                                {
+                                    <li class="honor">
+                                        <MudIcon Icon="@Icons.Material.Filled.WorkspacePremium" Size="Size.Small" />
+                                        @highlight.Name
+                                    </li>
+                                }
+                            </ul>
+                        }
                     </div>
-                </Animate>
+                </li>
             }
-        </div>
-    </MudContainer>
+        </ol>
+    </div>
 </section>
 
 <section id="skills" class="section">
-    <MudContainer MaxWidth="MaxWidth.Large">
-        <MudText Typo="Typo.overline" Class="section-kicker">Skills</MudText>
-        <MudText Typo="Typo.h3" Class="section-title mb-6">What I work with</MudText>
+    <div class="wrap">
+        <header class="strap">
+            <h2 class="strap-title"><span>What I work with</span></h2>
+            <span class="strap-tag">@_skillGroups.Sum(g => g.Items.Count) tools · @_skillGroups.Sum(g => g.Items.Count(i => i.Reluctant)) reluctant</span>
+        </header>
 
-        <MudGrid>
-            @for (var i = 0; i < _skillGroups.Count; i++)
+        <div class="lineup">
+            @foreach (var group in _skillGroups)
             {
-                var group = _skillGroups[i];
-                <MudItem xs="12" sm="6" md="4">
-                    <Animate Animation="Animations.FadeUp" Duration="TimeSpan.FromSeconds(0.5)" Delay="TimeSpan.FromSeconds(i * 0.08)">
-                        <MudText Typo="Typo.subtitle2" Class="skill-group-title mb-2">@group.Category</MudText>
-                        <div class="skill-chip-row">
-                            @foreach (var skill in group.Items)
-                            {
-                                <MudTooltip Text="@(skill.Reluctant ? "Used it. Can still use it. Would rather not." : skill.Description)" Disabled="@(!skill.Reluctant && string.IsNullOrEmpty(skill.Description))">
-                                    <MudChip T="string" Variant="Variant.Text" Color="Color.Primary"
-                                             Icon="@(skill.Reluctant ? Icons.Material.Filled.SentimentVeryDissatisfied : null)"
-                                             Class="@(skill.Reluctant ? "skill-chip skill-chip-reluctant" : "skill-chip")">@skill.Name</MudChip>
+                <div class="lineup-row">
+                    <h3 class="lineup-name">@group.Category</h3>
+                    <ul class="tag-row">
+                        @foreach (var skill in group.Items)
+                        {
+                            var tip = skill.Reluctant ? "Used it. Can still use it. Would rather not." : skill.Description;
+                            <li>
+                                <MudTooltip Text="@tip" Disabled="@string.IsNullOrEmpty(tip)">
+                                    <span class="tag @(skill.Reluctant ? "tag-reluctant" : "") @(string.IsNullOrEmpty(tip) ? "" : "tag-has-tip")"
+                                          tabindex="@(string.IsNullOrEmpty(tip) ? null : "0")">
+                                        @if (skill.Reluctant)
+                                        {
+                                            <MudIcon Icon="@Icons.Material.Filled.SentimentVeryDissatisfied" Size="Size.Small" />
+                                        }
+                                        @skill.Name
+                                    </span>
                                 </MudTooltip>
-                            }
-                        </div>
-                    </Animate>
-                </MudItem>
+                            </li>
+                        }
+                    </ul>
+                </div>
             }
-        </MudGrid>
-    </MudContainer>
+        </div>
+    </div>
 </section>
 
-<section id="contact" class="section section-alt">
-    <MudContainer MaxWidth="MaxWidth.Medium" Class="text-center">
-        <MudText Typo="Typo.overline" Class="section-kicker">Contact</MudText>
-        <MudText Typo="Typo.h3" Class="section-title mb-4">Let's build something</MudText>
-        <MudText Typo="Typo.body1" Class="mb-6">
+<section id="contact" class="section section-band signoff">
+    <div class="wrap">
+        <header class="strap">
+            <h2 class="strap-title strap-title--xl"><span>Let's build something</span></h2>
+            <span class="strap-tag">Internships · Freelance</span>
+        </header>
+        <p class="section-lede">
             Open to internships, freelance work, and anything worth building together. Pick a channel, say hi.
-        </MudText>
-        <Animate Animation="Animations.FadeUp" Duration="TimeSpan.FromSeconds(0.6)">
-            <div class="d-flex justify-center flex-wrap gap-3 cta-actions">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" StartIcon="@Icons.Material.Filled.Email" Href="mailto:cabildo.alexsam@gmail.com" Size="Size.Large">
-                    Email Me
-                </MudButton>
-                <MudButton Variant="Variant.Outlined" Color="Color.Default" StartIcon="@Icons.Custom.Brands.GitHub" Href="https://github.com/SpinellyA/" Target="_blank" Size="Size.Large">
-                    GitHub
-                </MudButton>
-            </div>
-        </Animate>
-    </MudContainer>
+        </p>
+        <div class="actions">
+            <a class="btn btn-primary btn-lg" href="mailto:cabildo.alexsam@gmail.com">
+                <MudIcon Icon="@Icons.Material.Filled.Email" Size="Size.Small" /> Email Me
+            </a>
+            <a class="btn btn-ghost btn-lg" href="https://github.com/SpinellyA/" target="_blank" rel="noopener">
+                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Small" /> GitHub
+            </a>
+        </div>
+        <p class="signoff-address">cabildo.alexsam@gmail.com</p>
+    </div>
 </section>
 
 @code {
@@ -208,6 +205,14 @@
     protected override void OnInitialized()
     {
         _ = RunHeroIntroAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("spinellyChannel.watch");
+        }
     }
 
     private async Task RunHeroIntroAsync()
@@ -361,7 +366,58 @@
             "https://bursaria.spinelly.net",
             "https://bursaria-app.spinelly.net",
             [new Tag("Blazor Server"), new Tag(".NET 10"), new Tag("PostgreSQL"), new Tag("Clean Architecture"), new Tag("DDD"), new Tag("CQRS")],
-            Featured: true
+            Featured: true,
+            Screens: ["images/projects/bursaria-1.webp"]
+        ),
+        new(
+            "UPCSG Website",
+            "The official site for UP Cebu's Computer Science Guild, with a real merch store and a full admin CMS behind it.",
+            "A complete web platform for UP Cebu's Computer Science Guild. The public side covers events, an officer and member directory, a Hall of Fame, and student opportunities. The merch store runs a genuine cart-to-checkout flow with product variants, order tracking and payment receipts. Every section is editable through a JWT-secured admin CMS, so officers can keep the site current without ever touching a deploy.",
+            "https://github.com/SpinellyA/upcsg-website",
+            "https://upcsg.org",
+            [
+                new Tag("Blazor WebAssembly"),
+                new Tag("ASP.NET Core"),
+                new Tag("FastEndpoints", "A minimal, high-performance alternative to MVC controllers for building APIs."),
+                new Tag("PostgreSQL"),
+                new Tag("Clean Architecture"),
+                new Tag("CQRS", "MediatR handlers with FluentValidation over an EF Core persistence layer."),
+                new Tag("Google OAuth", "Sign-in with Google, issuing JWTs for the admin CMS."),
+                new Tag("AWS S3", "Object storage for member photos, event images and merch media."),
+            ],
+            Featured: true,
+            Live: true,
+            Screens: ["images/projects/upcsg-1.webp", "images/projects/upcsg-2.webp", "images/projects/upcsg-3.webp"]
+        ),
+        new(
+            "Ponyfolio",
+            "A creator platform for Pony Town skins: a gallery, a commissions marketplace, and a browser extension that documents a design in one image.",
+            "A publishing and commissions platform for Pony Town character designs. Creators upload skins with full colour palettes, and browsers can like, save, follow and report. On top of that sits a commissions marketplace with packages, slot allocation, turnaround times, staged job tracking and client feedback, plus paid creator tiers, account verification and an admin analytics view. A companion browser extension reads the Pony Town editor and renders every setting, swatch and hex code into a single shareable sheet.",
+            "https://github.com/SpinellyA/ponyfolio",
+            "https://ponyfolio.com",
+            [
+                new Tag("Blazor WebAssembly"),
+                new Tag("ASP.NET Core"),
+                new Tag("FastEndpoints"),
+                new Tag("PostgreSQL"),
+                new Tag("Clean Architecture"),
+                new Tag("DDD", "Aggregate roots, value objects and strongly-typed IDs across designs, commissions and payments."),
+                new Tag("CQRS", "MediatR handlers separating reads from writes."),
+                new Tag("AWS S3", "Object storage for uploaded skin artwork and design sheets."),
+                new Tag("Browser Extension", "Reads the Pony Town editor and renders every setting, swatch and hex code into one shareable image."),
+            ],
+            Featured: true,
+            Live: true,
+            Screens: ["images/projects/ponyfolio-1.webp", "images/projects/ponyfolio-2.webp", "images/projects/ponyfolio-3.webp"]
+        ),
+        new(
+            "Amiki",
+            "Alex has many ideas. Many, many ideas. And, he likes to forget most of them too.",
+            "Alex has many ideas. Many, many ideas. And, he likes to forget most of them too. On top of that, his school likes to not have a clear and unified platform for tasks and announcements. So it's easy to miss things. On top of that, are many more unique problems on top of it. So, Alex built somebody who can help him organize everything 🙂 . Why not use existing productivity apps? Who said what Alex has is just a productivity problem?",
+            "https://github.com/SpinellyA/amiki",
+            null,
+            [new Tag("Blazor WebAssembly"), new Tag("MudBlazor"), new Tag("ASP.NET Core"), new Tag("PostgreSQL"), new Tag("EF Core"), new Tag("Google OAuth")],
+            Screens: ["images/projects/amiki-1.webp"]
         ),
         new(
             "FindersJeepers",
@@ -369,15 +425,18 @@
             "An admin dashboard and live tracking platform for jeepney fleets, drivers, and routes. Tracks trips end to end, from dispatch to completion, with real-time maps, route and driver utilization charts, and a live public journey map for commuters.",
             "https://github.com/SpinellyA/FindersJeepers",
             null,
-            [new Tag("Blazor Web App"), new Tag("ASP.NET Core"), new Tag("PostgreSQL"), new Tag("EF Core"), new Tag("Live Maps")]
+            [new Tag("Blazor Web App"), new Tag("ASP.NET Core"), new Tag("PostgreSQL"), new Tag("EF Core"), new Tag("Live Maps")],
+            Screens: ["images/projects/findersjeepers-1.webp"]
         ),
         new(
             "Project Artemis",
             "A whitelist and player dashboard system for a private Minecraft SMP, from application to live server stats.",
             "Manages whitelist requests for a private Minecraft server organized around school communities. Applicants apply, admins review and approve, and accepted players get a personal dashboard showing live server status, player counts, and a countdown to the next season.",
             null,
-            null,
-            [new Tag("Blazor"), new Tag("ASP.NET Core"), new Tag("Authentication"), new Tag("Minecraft Server API")]
+            "http://artemis.runasp.net",
+            [new Tag("Blazor"), new Tag("ASP.NET Core"), new Tag("Authentication"), new Tag("Minecraft Server API")],
+            Live: true,
+            Screens: ["images/projects/artemis-1.webp"]
         ),
         new(
             "SMS Bulker",
@@ -392,8 +451,10 @@
             "A study tool built to grind out exam prep, born from one course's worth of last-minute panic.",
             "A lightweight web-based study tool built to cram for a specific course. Started as a personal exam-prep hack and turned into a small, functional quiz app in its own right.",
             "https://github.com/SpinellyA/examGrinder",
-            null,
-            [new Tag("JavaScript"), new Tag("React"), new Tag("HTML/CSS")]
+            "https://spinellya.github.io/examGrinder/",
+            [new Tag("JavaScript"), new Tag("React"), new Tag("HTML/CSS")],
+            Live: true,
+            Screens: ["images/projects/examgrinder-1.webp", "images/projects/examgrinder-2.webp"]
         ),
     ];
 }

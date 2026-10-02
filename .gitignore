@@ -3,3 +3,10 @@
 .vs/
 *.user
 .claude/
+
+# Impeccable scratch (review captures, decision-page logs)
+.impeccable/review/
+.impeccable/questions/
+
+# Retired: Artemis now shows a still screen
+spinelly/wwwroot/images/projects/artemis.mp4

@@ -1,4 +1,6 @@
 @* Cassette-tape project showcase: a CRT TV on a tape deck, with a rack of tapes below. *@
+@inject IJSRuntime JS
+@implements IDisposable
 
 <div class="showcase">
     <div class="showcase-stage @(_selected is null ? "" : "showcase-stage--active")">
@@ -18,24 +20,117 @@
                         <div class="tv-static" aria-hidden="true"></div>
                         <div class="tv-message">No project selected</div>
                     }
-                    else if (!string.IsNullOrEmpty(_selected.PreviewImage))
+                    else if (ShowTitleCard)
                     {
-                        <img class="tv-media" src="@_selected.PreviewImage" alt="@($"Preview of {_selected.Name}")" />
-                    }
-                    else
-                    {
-                        <div class="tv-titlecard" @key="_selectedIndex">
-                            <span class="tv-titlecard-label">Now playing</span>
+                        @if (!HasMedia)
+                        {
+                            @* No footage yet: the channel runs colour bars, never a black void. *@
+                            <div class="tv-bars" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                        }
+                        <div class="tv-titlecard" @key="@($"card-{_selectedIndex}")">
+                            <span class="tv-titlecard-label @(_selected.Featured ? "tv-titlecard-label--gold" : "")">
+                                @(_selected.Featured ? "Now playing · Flagship" : "Now playing")
+                            </span>
                             <span class="tv-titlecard-name">@_selected.Name</span>
                         </div>
+                    }
+                    else if (IsVideo(_selected.PreviewMedia))
+                    {
+                        @* No native controls: the TV chassis drives playback, and the
+                           screen is pointer-inert so nobody can scrub or pause on it. *@
+                        <video class="tv-media" @key="@($"vid-{_selectedIndex}")" @ref="_videoRef"
+                               src="@_selected.PreviewMedia"
+                               loop="@(!_selected.Narrated)"
+                               playsinline
+                               preload="metadata"
+                               aria-label="@($"{(_selected.Narrated ? "Narrated walkthrough" : "Screen recording")} of {_selected.Name}")"></video>
+                    }
+                    else if (HasScreens)
+                    {
+                        @* Every screen is in the DOM so the next one is already loaded;
+                           only the current one shows, and it cuts in like a channel change. *@
+                        var screens = _selected.Screens!;
+                        var current = _slide % screens.Count;
+                        @for (var s = 0; s < screens.Count; s++)
+                        {
+                            <img class="tv-media tv-slide @(s == current ? "tv-slide--on" : "")"
+                                 src="@screens[s]" loading="eager" decoding="async"
+                                 alt="@($"{_selected.Name}, screen {s + 1} of {screens.Count}")" />
+                        }
+                        @if (screens.Count > 1)
+                        {
+                            <span class="tv-channel" aria-hidden="true">@(current + 1)/@screens.Count</span>
+                        }
+                    }
+                    else if (!string.IsNullOrEmpty(_selected.PreviewMedia))
+                    {
+                        <img class="tv-media" src="@_selected.PreviewMedia" alt="@($"Preview of {_selected.Name}")" />
+                    }
+                    @if (_selected is not null && !ShowTitleCard)
+                    {
+                        <span class="tv-bug" aria-hidden="true">spinelly<span>.</span></span>
                     }
                     <div class="tv-scanlines" aria-hidden="true"></div>
                 </div>
 
                 <div class="tv-panel">
                     <span class="tv-brand">spinelly<span class="tv-brand-dot">.</span></span>
-                    <span class="tv-knob"></span>
-                    <span class="tv-knob"></span>
+
+                    @if (HasVideo)
+                    {
+                        <div class="tv-controls">
+                            <button type="button" class="tv-btn"
+                                    title="@(_isPlaying ? "Pause" : "Play")"
+                                    aria-label="@(_isPlaying ? "Pause" : "Play")"
+                                    disabled="@ShowTitleCard"
+                                    @onclick="TogglePlay">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    @if (_isPlaying)
+                                    {
+                                        <rect x="7" y="5" width="3.5" height="14" rx="1.2" />
+                                        <rect x="13.5" y="5" width="3.5" height="14" rx="1.2" />
+                                    }
+                                    else
+                                    {
+                                        <path d="M8 5.4v13.2a1 1 0 0 0 1.53.85l10.2-6.6a1 1 0 0 0 0-1.7L9.53 4.55A1 1 0 0 0 8 5.4Z" />
+                                    }
+                                </svg>
+                            </button>
+
+                            @if (_selected!.Narrated)
+                            {
+                                <button type="button" class="tv-btn"
+                                        title="@(IsSilent ? "Unmute" : "Mute")"
+                                        aria-label="@(IsSilent ? "Unmute" : "Mute")"
+                                        @onclick="ToggleMute">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M4 9.5h3.2L12 5.3v13.4L7.2 14.5H4a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1Z" />
+                                        @if (IsSilent)
+                                        {
+                                            <path class="tv-icon-stroke" d="M16.5 9.5l4 5M20.5 9.5l-4 5" />
+                                        }
+                                        else
+                                        {
+                                            <path class="tv-icon-stroke" d="M15.6 9a4.2 4.2 0 0 1 0 6" />
+                                            <path class="tv-icon-stroke" d="M18.1 6.9a7.6 7.6 0 0 1 0 10.2" />
+                                        }
+                                    </svg>
+                                </button>
+
+                                <input class="tv-volume" type="range" min="0" max="1" step="0.05"
+                                       value="@_volume.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                       aria-label="Volume"
+                                       @oninput="OnVolumeInput" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <span class="tv-knob"></span>
+                        <span class="tv-knob"></span>
+                    }
                 </div>
             </div>
 
@@ -81,46 +176,57 @@
                 @* Fixed width + @key: the card never reflows while the column expands,
                    and a fresh element each selection replays the entrance animation. *@
                 <div class="info-card" @key="_selectedIndex" style="--card-accent: @ColorFor(_selectedIndex)">
-                    <span class="info-spine" aria-hidden="true"></span>
 
                     <div class="info-body">
                         <div class="info-top">
                             <span class="info-track">Track @((_selectedIndex + 1).ToString("00"))</span>
+                            @if (_selected.Live)
+                            {
+                                <span class="info-live"><span class="tally" aria-hidden="true"></span>Live</span>
+                            }
                             @if (_selected.Featured)
                             {
-                                <span class="info-flag">Flagship</span>
+                                <span class="info-flag">
+                                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" /></svg>
+                                    Flagship
+                                </span>
                             }
                         </div>
 
-                        <h3 class="info-title">@_selected.Name</h3>
-                        <span class="info-rule" aria-hidden="true"></span>
+                        <h3 class="info-title"><span>@_selected.Name</span></h3>
 
                         <p class="info-desc">@(_selected.LongDescription ?? _selected.ShortDescription)</p>
 
-                        <span class="info-legend">Featuring</span>
-                        <div class="skill-chip-row mb-4">
+                        <span class="info-legend">Built with</span>
+                        <ul class="tag-row info-tags">
                             @foreach (var tag in _selected.Tags)
                             {
-                                <MudTooltip Text="@tag.Description" Disabled="@string.IsNullOrEmpty(tag.Description)">
-                                    <MudChip T="string" Variant="Variant.Text" Color="Color.Secondary" Class="skill-chip">@tag.Name</MudChip>
-                                </MudTooltip>
+                                <li>
+                                    <MudTooltip Text="@tag.Description" Disabled="@string.IsNullOrEmpty(tag.Description)">
+                                        <span class="tag tag-sm @(string.IsNullOrEmpty(tag.Description) ? "" : "tag-has-tip")"
+                                              tabindex="@(string.IsNullOrEmpty(tag.Description) ? null : "0")">@tag.Name</span>
+                                    </MudTooltip>
+                                </li>
                             }
-                        </div>
+                        </ul>
 
                         <div class="info-actions">
                             @if (!string.IsNullOrEmpty(_selected.DemoLink))
                             {
-                                <MudButton Variant="Variant.Filled" Color="Color.Primary" Href="@_selected.DemoLink" Target="_blank">
-                                    Live Demo
-                                </MudButton>
+                                <a class="btn btn-primary" href="@_selected.DemoLink" target="_blank" rel="noopener">
+                                    @(_selected.Live ? "Visit Live Site" : "Live Demo")
+                                </a>
                             }
                             @if (!string.IsNullOrEmpty(_selected.LandingPageLink))
                             {
-                                <MudButton Variant="Variant.Outlined" Color="Color.Default"
-                                           StartIcon="@(IsRepoLink(_selected.LandingPageLink) ? Icons.Custom.Brands.GitHub : null)"
-                                           Href="@_selected.LandingPageLink" Target="_blank">
-                                    @(IsRepoLink(_selected.LandingPageLink) ? "View Repo" : "Visit Site")
-                                </MudButton>
+                                var isRepo = IsRepoLink(_selected.LandingPageLink);
+                                <a class="btn btn-ghost" href="@_selected.LandingPageLink" target="_blank" rel="noopener">
+                                    @if (isRepo)
+                                    {
+                                        <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Small" />
+                                    }
+                                    @(isRepo ? "View Repo" : "Visit Site")
+                                </a>
                             }
                         </div>
                     </div>
@@ -136,12 +242,12 @@
             var project = Projects[i];
             var isSelected = index == _selectedIndex;
             <button type="button"
-                    class="tape @(isSelected ? "tape--selected" : "")"
+                    class="tape @(isSelected ? "tape--selected" : "") @(project.Featured ? "tape--flagship" : "")"
                     style="--tape-color: @ColorFor(index)"
                     aria-pressed="@isSelected"
                     title="@project.ShortDescription"
                     @onclick="() => Select(index)">
-                <span class="tape-float">
+                <span class="tape-lift">
                     <span class="tape-body">
                         <svg class="tape-svg" viewBox="0 0 200 128" aria-hidden="true">
                             <rect class="tape-shell" x="3" y="3" width="194" height="122" rx="10" />
@@ -158,8 +264,20 @@
                         </svg>
                         <span class="tape-label-text">
                             <span class="tape-name">@project.Name</span>
-                            <span class="tape-side">@(project.Featured ? "Side A · Flagship" : "Side A")</span>
+                            <span class="tape-side">@TapeSide(project)</span>
                         </span>
+                        @if (project.Featured)
+                        {
+                            @* Gold-foil edition: a shine crosses the shell and sparkles
+                               twinkle on its corners. All solid shapes, no glow. *@
+                            <span class="tape-foil" aria-hidden="true"><span class="tape-shine"></span></span>
+                            @for (var k = 0; k < 3; k++)
+                            {
+                                <svg class="tape-spark tape-spark--@k" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z" />
+                                </svg>
+                            }
+                        }
                     </span>
                 </span>
             </button>
@@ -171,22 +289,223 @@
     [Parameter, EditorRequired]
     public List<ProjectEntry> Projects { get; set; } = [];
 
+    private const int TitleCardMs = 1400;
+
     private static readonly string[] TapeColors =
         ["#b3a6ff", "#9ff2dc", "#ffcf80", "#8ec2ff", "#ff96a8"];
 
+    private static readonly string[] VideoExtensions = [".mp4", ".webm", ".ogv", ".mov"];
+
     private int _selectedIndex = -1;
+    private int _selectionGeneration;
+    private bool _flashingTitle;
+    private bool _pendingPlay;
+    private bool _isPlaying;
+    private double _volume = 0.8;
+    private bool _muted;
+
+    private ElementReference _videoRef;
+    private DotNetObjectReference<ProjectShowcase>? _selfRef;
 
     private ProjectEntry? _selected =>
         _selectedIndex >= 0 && _selectedIndex < Projects.Count ? Projects[_selectedIndex] : null;
 
-    private void Select(int index) =>
-        _selectedIndex = index == _selectedIndex ? -1 : index;
+    private bool HasVideo => IsVideo(_selected?.PreviewMedia);
 
-    private void Eject() => _selectedIndex = -1;
+    private bool HasScreens => !HasVideo && _selected?.Screens is { Count: > 0 };
 
-    private static string ColorFor(int index) =>
-        TapeColors[((index % TapeColors.Length) + TapeColors.Length) % TapeColors.Length];
+    private bool HasMedia => HasScreens || !string.IsNullOrEmpty(_selected?.PreviewMedia);
+
+    // The card also stands in permanently for projects with no media yet.
+    private bool ShowTitleCard =>
+        _selected is not null && (!HasMedia || _flashingTitle);
+
+    private bool IsSilent => _muted || _volume <= 0;
+
+    private async Task Select(int index)
+    {
+        var next = index == _selectedIndex ? -1 : index;
+        var generation = ++_selectionGeneration;
+
+        await StopCurrentAsync();
+
+        _selectedIndex = next;
+        _isPlaying = false;
+        _flashingTitle = false;
+        _pendingPlay = false;
+        StopSlides();
+        await JS.InvokeVoidAsync("spinellyChannel.onAir", _selected?.Name);
+
+        if (_selected is null || !HasMedia)
+        {
+            return;
+        }
+
+        // Flash "Now playing" before the footage rolls.
+        _flashingTitle = true;
+        StateHasChanged();
+
+        await Task.Delay(TitleCardMs);
+        if (generation != _selectionGeneration)
+        {
+            return; // A different tape was picked mid-flash.
+        }
+
+        _flashingTitle = false;
+        if (HasVideo)
+        {
+            _pendingPlay = true;
+        }
+        else if (HasScreens)
+        {
+            StartSlides(generation);
+        }
+    }
+
+    private async Task Eject()
+    {
+        _selectionGeneration++;
+        await StopCurrentAsync();
+        _selectedIndex = -1;
+        _flashingTitle = false;
+        _pendingPlay = false;
+        _isPlaying = false;
+        StopSlides();
+        await JS.InvokeVoidAsync("spinellyChannel.onAir", (string?)null);
+    }
+
+    private const int SlideMs = 4500;
+    private int _slide;
+    private Timer? _slideTimer;
+
+    private void StartSlides(int generation)
+    {
+        _slide = 0;
+        if (_selected?.Screens is not { Count: > 1 })
+        {
+            return;
+        }
+
+        _slideTimer = new Timer(_ => InvokeAsync(() =>
+        {
+            if (generation != _selectionGeneration)
+            {
+                return; // Tape changed; this timer is about to be disposed.
+            }
+            _slide++;
+            StateHasChanged();
+        }), null, SlideMs, SlideMs);
+    }
+
+    private void StopSlides()
+    {
+        _slideTimer?.Dispose();
+        _slideTimer = null;
+        _slide = 0;
+    }
+
+    private async Task StopCurrentAsync()
+    {
+        if (_isPlaying)
+        {
+            try
+            {
+                await JS.InvokeVoidAsync("spinellyTv.pause", _videoRef);
+            }
+            catch (JSException)
+            {
+                // Element already gone; nothing to pause.
+            }
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!_pendingPlay)
+        {
+            return;
+        }
+
+        _pendingPlay = false;
+        _selfRef ??= DotNetObjectReference.Create(this);
+
+        await JS.InvokeVoidAsync("spinellyTv.init", _videoRef, _selfRef);
+        await JS.InvokeVoidAsync("spinellyTv.setVolume", _videoRef, _volume, _muted);
+
+        // A blocked autoplay just leaves the play button showing.
+        await JS.InvokeAsync<bool>("spinellyTv.play", _videoRef);
+    }
+
+    private async Task TogglePlay()
+    {
+        if (_isPlaying)
+        {
+            await JS.InvokeVoidAsync("spinellyTv.pause", _videoRef);
+        }
+        else
+        {
+            await JS.InvokeAsync<bool>("spinellyTv.play", _videoRef);
+        }
+    }
+
+    private async Task ToggleMute()
+    {
+        _muted = !_muted;
+        if (!_muted && _volume <= 0)
+        {
+            _volume = 0.8;
+        }
+        await JS.InvokeVoidAsync("spinellyTv.setVolume", _videoRef, _volume, _muted);
+    }
+
+    private async Task OnVolumeInput(ChangeEventArgs e)
+    {
+        if (double.TryParse(e.Value?.ToString(),
+                System.Globalization.NumberStyles.Float,
+                System.Globalization.CultureInfo.InvariantCulture, out var v))
+        {
+            _volume = v;
+            _muted = v <= 0;
+            await JS.InvokeVoidAsync("spinellyTv.setVolume", _videoRef, _volume, _muted);
+        }
+    }
+
+    [JSInvokable]
+    public void OnPlayStateChanged(bool playing)
+    {
+        _isPlaying = playing;
+        StateHasChanged();
+    }
+
+    private const string AmberTape = "#ffcf80";
+    private const string FlagshipFallbackTape = "#ff96a8";
+
+    // Flagship tapes are trimmed in gold, so an amber shell would swallow the trim.
+    private string ColorFor(int index)
+    {
+        var color = TapeColors[((index % TapeColors.Length) + TapeColors.Length) % TapeColors.Length];
+        var featured = index >= 0 && index < Projects.Count && Projects[index].Featured;
+        return featured && color == AmberTape ? FlagshipFallbackTape : color;
+    }
+
+    private static bool IsVideo(string? path) =>
+        !string.IsNullOrEmpty(path) &&
+        VideoExtensions.Any(ext => path.EndsWith(ext, StringComparison.OrdinalIgnoreCase));
+
+    private static string TapeSide(ProjectEntry p) => (p.Featured, p.Live) switch
+    {
+        (true, true) => "Flagship · Live",
+        (true, false) => "Flagship",
+        (false, true) => "Live",
+        _ => "Side A",
+    };
 
     private static bool IsRepoLink(string url) =>
         url.Contains("github.com", StringComparison.OrdinalIgnoreCase);
+
+    public void Dispose()
+    {
+        _slideTimer?.Dispose();
+        _selfRef?.Dispose();
+    }
 }
