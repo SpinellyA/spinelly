@@ -13,9 +13,9 @@
             <a href="#home" class="wordmark" aria-label="spinelly, back to top">spinelly<span class="wordmark-dot">.</span></a>
 
             <nav class="programmes @(_menuOpen ? "programmes--open" : "")" aria-label="Sections">
-                @foreach (var (id, label) in Programmes)
+                @foreach (var (id, label, href) in Programmes)
                 {
-                    <a href="#@id" data-programme="@id" @onclick="() => _menuOpen = false">@label</a>
+                    <a href="@href" data-programme="@id" @onclick="() => _menuOpen = false">@label</a>
                 }
             </nav>
 
@@ -51,13 +51,15 @@
 </div>
 
 @code {
-    private static readonly (string Id, string Label)[] Programmes =
+    // Hrefs resolve against <base href="/">, so section links work from /resume too.
+    private static readonly (string Id, string Label, string Href)[] Programmes =
     [
-        ("projects", "Projects"),
-        ("about", "About"),
-        ("education", "Education"),
-        ("skills", "Skills"),
-        ("contact", "Contact"),
+        ("projects", "Projects", "#projects"),
+        ("about", "About", "#about"),
+        ("education", "Education", "#education"),
+        ("skills", "Skills", "#skills"),
+        ("contact", "Contact", "#contact"),
+        ("resume", "Resume", "resume"),
     ];
 
     private bool _menuOpen;

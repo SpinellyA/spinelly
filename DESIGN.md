@@ -72,6 +72,11 @@ typography:
     fontWeight: 600
     lineHeight: 1.4
     fontFeature: "'tnum' 1"
+  paper:
+    fontFamily: "EB Garamond, Garamond, Times New Roman, serif"
+    fontSize: "1.06rem"
+    fontWeight: 400
+    lineHeight: 1.38
 rounded:
   square: "0px"
   screen: "3px"
@@ -291,3 +296,8 @@ Section heading as a violet bar plus an optional teal tag. Wipes in via `clip-pa
 - **Don't** lay projects or skills out as a card grid; they are tapes, schedules and lineups.
 - **Don't** put em-dashes in copy.
 - **Don't** put decorative uppercase labels above section headings; the strap's teal tier is the only secondary heading line, and a label over a title must carry live state or a real fact (track number, LIVE, Now playing).
+
+## Addendum: viewfinder hero and the résumé sheet (2026-10-08)
+
+- **Hero is a camera viewfinder.** The portrait sits in a 4:3 hardware frame with title-safe corner marks and an on-screen display in Martian Mono: `CAM 1` and a running `TC hh:mm:ss` counted from the visitor's arrival (`HeroTimecode`, its own component so only that span re-renders). The ident is one three-tier lower third hung off the frame's bottom-left: teal call line, violet "Alex" at ident width (125%), and a phosphor-white tier with the full name and role (inverted to strap ink on the daylight ground). The typing intro is retired at the owner's request; the copy stays.
+- **The résumé sheet is the one surface outside the channel's graphics.** `/resume` renders the Harvard-format résumé as white paper (`#ffffff`, ink `#141414`) in EB Garamond, self-hosted, with a soft tinted drop shadow as its only depth. It prints clean (`@media print` hides the station bug, toolbar and footer). The public PDF in `wwwroot/files/` omits the phone number.

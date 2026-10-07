@@ -206,7 +206,8 @@ html[data-now="projects"] .programmes a[data-programme="projects"],
 html[data-now="about"] .programmes a[data-programme="about"],
 html[data-now="education"] .programmes a[data-programme="education"],
 html[data-now="skills"] .programmes a[data-programme="skills"],
-html[data-now="contact"] .programmes a[data-programme="contact"] {
+html[data-now="contact"] .programmes a[data-programme="contact"],
+html[data-now="resume"] .programmes a[data-programme="resume"] {
     color: var(--ink);
 }
 
@@ -214,7 +215,8 @@ html[data-now="projects"] .programmes a[data-programme="projects"]::after,
 html[data-now="about"] .programmes a[data-programme="about"]::after,
 html[data-now="education"] .programmes a[data-programme="education"]::after,
 html[data-now="skills"] .programmes a[data-programme="skills"]::after,
-html[data-now="contact"] .programmes a[data-programme="contact"]::after {
+html[data-now="contact"] .programmes a[data-programme="contact"]::after,
+html[data-now="resume"] .programmes a[data-programme="resume"]::after {
     transform: scaleX(1);
 }
 
@@ -353,100 +355,149 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
 }
 
 /* ── Ident (hero) ───────────────────────────────────────────── */
+/* The presenter shot: a camera viewfinder with its on-screen display, and the
+   ident set as one big lower third burned in over the picture. */
 .ident {
     min-height: calc(100dvh - 61px);
     display: flex;
     align-items: center;
-    padding: clamp(3rem, 7vw, 6rem) 0;
+    padding: clamp(3rem, 6vw, 5rem) 0 clamp(4rem, 8vw, 6rem);
 }
 
 .ident-grid {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: clamp(2.5rem, 5vw, 5rem);
+    gap: clamp(3rem, 6vw, 5.5rem);
     align-items: center;
 }
 
-.ident-kicker {
-    min-height: 1.3em;
-    font-size: clamp(1.4rem, 2.6vw, 2rem);
+.viewfinder {
+    position: relative;
+    margin: 0 0 3rem 1.25rem;
+    padding: 12px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--hardware-radius);
+}
+
+.vf-screen {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--screen);
+    border-radius: 3px;
+}
+
+.vf-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 25%;
+    display: block;
+}
+
+.monitor-scanlines,
+.tv-scanlines {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(to bottom,
+        rgba(0, 0, 0, 0.18) 0px, rgba(0, 0, 0, 0.18) 1px,
+        transparent 1px, transparent 3px);
+}
+
+/* Title-safe corner marks, as a camera operator sees them. */
+.vf-corner {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border: 0 solid rgba(255, 255, 255, 0.8);
+    pointer-events: none;
+}
+
+.vf-corner--tl { top: 6%; left: 5%; border-top-width: 2px; border-left-width: 2px; }
+.vf-corner--tr { top: 6%; right: 5%; border-top-width: 2px; border-right-width: 2px; }
+.vf-corner--bl { bottom: 6%; left: 5%; border-bottom-width: 2px; border-left-width: 2px; }
+.vf-corner--br { bottom: 6%; right: 5%; border-bottom-width: 2px; border-right-width: 2px; }
+
+.vf-osd {
+    position: absolute;
+    top: calc(6% + 8px);
+    padding: 0.2rem 0.45rem;
+    background: rgba(11, 10, 18, 0.62);
+    color: #eceafc;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     font-weight: 600;
-    font-stretch: 100%;
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    color: var(--ink-2);
-    margin-bottom: 0.1rem !important;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+    pointer-events: none;
 }
 
-.ident-name {
-    margin: 0 0 1.25rem;
-    font-size: clamp(4rem, 11vw, 6rem);
-    font-weight: 850;
-    font-stretch: 125%;
-    line-height: 1.02;
-    letter-spacing: -0.035em;
-    white-space: nowrap;
-    color: var(--ink);
+.vf-osd--tl { left: calc(5% + 10px); }
+.vf-osd--tr { right: calc(5% + 10px); }
+
+/* The ident: three tiers of one lower third, hanging off the frame's bottom-left. */
+.ident-strap {
+    position: absolute;
+    left: -1.25rem;
+    bottom: -2.5rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 0;
 }
 
-/* The surname is typed small so the full name fits beside "Alex" before it is deleted. */
-.ident-suffix {
-    font-size: 0.36em;
-    font-weight: 700;
-    font-stretch: 100%;
-    letter-spacing: -0.01em;
-    vertical-align: 0.2em;
-}
-
-.typing-caret {
-    display: inline-block;
-    width: 0.08em;
-    min-width: 3px;
-    height: 0.82em;
-    margin-left: 0.04em;
-    background: var(--violet);
-    vertical-align: -0.04em;
-    animation: caret-blink 0.9s steps(1) infinite;
-}
-
-.ident-kicker .typing-caret {
-    width: 0.1em;
-    height: 0.9em;
-    vertical-align: -0.1em;
-}
-
-.typing-caret-hidden {
-    display: none;
-}
-
-@keyframes caret-blink {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0; }
-}
-
-.typing-highlight {
-    background: var(--violet);
-    color: var(--strap-ink);
-}
-
-.ident-role {
-    display: inline-block;
-    margin-bottom: 1.75rem !important;
+.ident-call {
     padding: 0.35rem 0.75rem;
     background: var(--teal);
     color: var(--strap-ink);
     font-weight: 700;
     font-stretch: 90%;
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    line-height: 1.2;
+}
+
+.ident-name {
+    margin: 0;
+    padding: 0.04em 0.24em 0.1em;
+    background: var(--violet);
+    color: var(--strap-ink);
+    font-size: clamp(3.6rem, 8.5vw, 6rem);
+    font-weight: 850;
+    font-stretch: 125%;
+    line-height: 1;
+    letter-spacing: -0.035em;
+}
+
+.ident-full {
+    margin-left: 0.9rem;
+    padding: 0.4rem 0.75rem;
+    background: #eceafc;
+    color: var(--strap-ink);
+    font-family: var(--font-label);
+    font-size: 0.74rem;
+    font-weight: 600;
+    font-stretch: 90%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.3;
+}
+
+/* On the daylight ground a white tier would vanish; it inverts like a broadcast key. */
+.channel.theme-light .ident-full {
+    background: var(--strap-ink);
+    color: #eceafc;
 }
 
 .ident-emphasis {
-    font-weight: 800;
-    font-stretch: 110%;
-    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.75rem !important;
+    font-weight: 850;
+    font-stretch: 100%;
+    font-size: clamp(1.6rem, 2.8vw, 2.15rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem !important;
     text-wrap: balance;
 }
 
@@ -466,77 +517,6 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
     font-size: 0.95rem;
     color: var(--ink-2);
 }
-
-/* Presenter monitor */
-.monitor {
-    position: relative;
-    margin: 0 0 2.5rem;
-    padding: 14px;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: var(--hardware-radius);
-}
-
-.monitor-screen {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background: var(--screen);
-    border-radius: 3px;
-}
-
-.monitor-screen img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 28%;
-    display: block;
-}
-
-.monitor-scanlines,
-.tv-scanlines {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.18) 0px, rgba(0, 0, 0, 0.18) 1px,
-        transparent 1px, transparent 3px);
-}
-
-/* Lower third: a broadcast name strap overlapping the monitor's bottom edge. */
-.lower-third {
-    position: absolute;
-    left: -1.25rem;
-    bottom: -2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.lt-name {
-    padding: 0.4rem 0.9rem 0.35rem;
-    background: var(--violet);
-    color: var(--strap-ink);
-    font-weight: 850;
-    font-stretch: 80%;
-    font-size: clamp(1.15rem, 2vw, 1.5rem);
-    line-height: 1.1;
-    letter-spacing: -0.01em;
-}
-
-.lt-role {
-    margin-left: 0.9rem;
-    padding: 0.35rem 0.75rem;
-    background: var(--teal);
-    color: var(--strap-ink);
-    font-family: var(--font-label);
-    font-size: 0.72rem;
-    font-stretch: 90%;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
 /* ── Sections ───────────────────────────────────────────────── */
 .section {
     padding: clamp(4.5rem, 9vw, 7.5rem) 0;
@@ -1643,13 +1623,9 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
     to   { clip-path: inset(0 0 0 0); }
 }
 
-.lt-name {
-    animation: strap-wipe 0.6s var(--ease-out) 0.35s both;
-}
-
-.lt-role {
-    animation: strap-wipe 0.55s var(--ease-out) 0.55s both;
-}
+.ident-call { animation: strap-wipe 0.5s var(--ease-out) 0.2s both; }
+.ident-name { animation: strap-wipe 0.6s var(--ease-out) 0.35s both; }
+.ident-full { animation: strap-wipe 0.5s var(--ease-out) 0.6s both; }
 
 /* Section straps wipe in as they scroll into view. Content is visible by
    default; only browsers with view timelines get the entrance. */
@@ -1668,6 +1644,161 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
         .strap-tag {
             animation-range: entry 35% cover 38%;
         }
+    }
+}
+
+/* ── Resume page ────────────────────────────────────────────── */
+/* A real sheet of paper on the studio desk: the one surface that leaves the
+   channel's graphics and speaks in the resume's own Harvard typography. */
+@font-face {
+    font-family: 'EB Garamond';
+    src: url('../fonts/eb-garamond.woff2') format('woff2');
+    font-weight: 400 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'EB Garamond';
+    src: url('../fonts/eb-garamond-italic.woff2') format('woff2');
+    font-weight: 400 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+.resume-page {
+    padding-top: clamp(3rem, 6vw, 4.5rem);
+}
+
+.resume-actions {
+    margin-bottom: 2rem;
+}
+
+.resume-sheet {
+    max-width: 8.5in;
+    margin: 0 auto;
+    padding: 0.6in 0.7in 0.7in;
+    background: #ffffff;
+    color: #141414;
+    font-family: 'EB Garamond', Garamond, 'Times New Roman', serif;
+    font-size: 1.06rem;
+    line-height: 1.38;
+    border-radius: 2px;
+    box-shadow: 0 18px 40px -12px rgba(5, 4, 12, 0.55);
+}
+
+.channel.theme-light .resume-sheet {
+    border: 1px solid var(--line);
+    box-shadow: 0 14px 32px -14px rgba(40, 32, 80, 0.25);
+}
+
+.resume-sheet a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.resume-sheet a:hover {
+    text-decoration: underline;
+}
+
+.resume-sheet ::selection {
+    background: #b3a6ff;
+    color: #13111d;
+}
+
+.rs-head {
+    text-align: center;
+    margin-bottom: 0.4rem;
+}
+
+.rs-name {
+    margin: 0 0 0.15rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.rs-contact {
+    font-size: 0.98rem;
+}
+
+.rs-section {
+    margin: 1.1rem 0 0.45rem;
+    padding-bottom: 0.15rem;
+    border-bottom: 1px solid #141414;
+    text-align: center;
+    font-size: 1.12rem;
+    font-weight: 700;
+}
+
+.rs-entry {
+    margin-bottom: 0.55rem;
+}
+
+.rs-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    column-gap: 1rem;
+}
+
+.rs-row > :last-child {
+    text-align: right;
+}
+
+.resume-sheet ul {
+    margin: 0;
+    padding-left: 1.15rem;
+}
+
+.resume-sheet li {
+    padding-left: 0.15rem;
+}
+
+@media (max-width: 640px) {
+    .resume-sheet {
+        padding: 1.75rem 1.25rem 2rem;
+        font-size: 1rem;
+    }
+
+    .rs-row > :last-child {
+        text-align: left;
+    }
+}
+
+@media print {
+    @page {
+        size: letter;
+        margin: 0.5in;
+    }
+
+    body,
+    .channel {
+        background: #ffffff !important;
+    }
+
+    .bug-bar,
+    .site-footer,
+    .skip-link,
+    .resume-toolbar,
+    .resume-actions {
+        display: none !important;
+    }
+
+    .resume-page {
+        padding: 0;
+    }
+
+    .resume-page .wrap {
+        width: 100%;
+    }
+
+    .resume-sheet {
+        max-width: none;
+        padding: 0;
+        box-shadow: none;
+        border: 0;
+        font-size: 10.5pt;
     }
 }
 
@@ -1741,9 +1872,8 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
         grid-template-columns: minmax(0, 1fr);
     }
 
-    .monitor {
-        max-width: 480px;
-        margin-left: 1.25rem;
+    .viewfinder {
+        max-width: 560px;
     }
 
     .showcase-stage {
@@ -1783,8 +1913,28 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
         min-width: 0;
     }
 
+    .viewfinder {
+        margin: 0 0 2.5rem 0.75rem;
+        padding: 8px;
+    }
+
+    .ident-strap {
+        left: -0.75rem;
+        bottom: -2rem;
+    }
+
     .ident-name {
-        font-size: clamp(3.4rem, 18vw, 4.5rem);
+        font-size: clamp(3rem, 15vw, 4rem);
+    }
+
+    .ident-full {
+        margin-left: 0.6rem;
+        font-size: 0.64rem;
+    }
+
+    .vf-corner {
+        width: 18px;
+        height: 18px;
     }
 
     .slot {
@@ -1829,7 +1979,6 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
         scroll-behavior: auto;
     }
 
-    .typing-caret,
     .tally,
     .tv-static,
     .deck-reel,
@@ -1839,8 +1988,9 @@ html[data-now="contact"] .programmes a[data-programme="contact"]::after {
     .tv-slide--on,
     .tv-titlecard-label,
     .tv-titlecard-name,
-    .lt-name,
-    .lt-role,
+    .ident-call,
+    .ident-name,
+    .ident-full,
     .tag-reluctant:hover,
     .tag-reluctant:focus-visible {
         animation: none !important;

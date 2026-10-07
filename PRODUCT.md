@@ -41,7 +41,8 @@ A 3rd-year CS student at UP Cebu whose portfolio is made of **live, shipped plat
 - **Voice:** first-person, punchy, friendly, slightly cheeky, never corporate. Copy is the owner's own and must be preserved, not rewritten. No em-dashes.
 - **Name:** goes by "Alex"; full name Alex Sam Cabildo. Handle "spinelly".
 - **Wordmark:** lowercase `spinelly.` with an accent-coloured dot (outlined SVGs in `wwwroot/images/brand/`). The owner is open to a better mark if one is proposed.
-- **Typing hero intro:** the "Alex Sam Cabildo" highlight-and-delete animation reflects his personality.
+- **Hero copy:** "What's poppin'? You can call me / Alex" plus the hero paragraphs are the owner's words. The typing animation that used to deliver them was removed at the owner's request (2026-10-08); do not bring it back.
+- **Résumé:** published at `/resume` (HTML sheet) and `files/Alex-Sam-Cabildo-Resume.pdf`. The public copy leaves out the phone number; the private PDF the owner sends to employers keeps it.
 
 ## Evidence on Hand
 

@@ -1,0 +1,132 @@
+@page "/resume"
+@inject IJSRuntime JS
+
+<PageTitle>Resume - Alex Sam Cabildo</PageTitle>
+
+@* The resume as a real sheet of paper on the channel's desk: readable and
+   reflowing on phones, printable, with the PDF one click away. Kept in step
+   with the Harvard-format PDF in wwwroot/files. No phone number on the public copy. *@
+<section class="section resume-page">
+    <div class="wrap">
+        <header class="strap resume-toolbar">
+            <h1 class="strap-title"><span>Resume</span></h1>
+            <span class="strap-tag">Updated October 2026</span>
+        </header>
+
+        <div class="actions resume-actions">
+            <a class="btn btn-primary" href="files/Alex-Sam-Cabildo-Resume.pdf" download>
+                <MudIcon Icon="@Icons.Material.Filled.Download" Size="Size.Small" /> Download PDF
+            </a>
+            <button type="button" class="btn btn-ghost" onclick="window.print()">
+                <MudIcon Icon="@Icons.Material.Filled.Print" Size="Size.Small" /> Print
+            </button>
+        </div>
+
+        <article class="resume-sheet" aria-label="Resume of Alex Sam Cabildo">
+            <header class="rs-head">
+                <h2 class="rs-name">Alex Sam Cabildo</h2>
+                <p class="rs-contact">
+                    Cebu City, Philippines •
+                    <a href="mailto:cabildo.alexsam@gmail.com">cabildo.alexsam@gmail.com</a> •
+                    <a href="https://spinelly.net">spinelly.net</a> •
+                    <a href="https://github.com/SpinellyA" target="_blank" rel="noopener">github.com/SpinellyA</a>
+                </p>
+            </header>
+
+            <h3 class="rs-section">Education</h3>
+            <div class="rs-entry">
+                <div class="rs-row"><strong>University of the Philippines Cebu</strong><span>Cebu City, Philippines</span></div>
+                <div class="rs-row"><em>Bachelor of Science in Computer Science</em><span>2024 – Present</span></div>
+                <ul>
+                    <li><strong>Honors:</strong> Iskolar ng Bayan; DOST-SEI RA 7687 Merit Scholar (full scholarship with living allowance)</li>
+                    <li><strong>Relevant coursework:</strong> Algorithms and Data Structures, Software Engineering, Systems Architecture, Discrete Mathematics, Data Science, Artificial Intelligence</li>
+                </ul>
+            </div>
+            <div class="rs-entry">
+                <div class="rs-row"><strong>Cebu City National Science High School</strong><span>Cebu City, Philippines</span></div>
+                <div class="rs-row"><em>Senior High School, STEM Strand, with High Honors; Junior High School, with High Honors</em><span>2018 – 2024</span></div>
+            </div>
+
+            <h3 class="rs-section">Projects</h3>
+            @foreach (var p in _projects)
+            {
+                <div class="rs-entry">
+                    <div class="rs-row">
+                        <strong>@p.Name</strong>
+                        @if (p.Url is not null)
+                        {
+                            <a href="@p.Url" target="_blank" rel="noopener">@p.Where</a>
+                        }
+                        else
+                        {
+                            <span>@p.Where</span>
+                        }
+                    </div>
+                    <div class="rs-row"><em>@p.Role</em><span>@p.Dates</span></div>
+                    <ul>
+                        @foreach (var b in p.Bullets)
+                        {
+                            <li>@b</li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="rs-entry">
+                <div class="rs-row"><strong>Additional projects</strong></div>
+                <ul>
+                    <li><strong>Amiki</strong> (Sep 2026 – Present): personal organiser for tasks, ideas and school announcements; Blazor WebAssembly, PostgreSQL.</li>
+                    <li><strong>Project Artemis</strong> (Jun 2026): server portal and player dashboard for a Minecraft community of UP Cebu students; Blazor.</li>
+                    <li><strong>ExamGrinder</strong> (May 2026): exam-prep quiz app with topic filters and shuffled question banks; React.</li>
+                    <li><strong>SMS Bulker</strong> (Apr – May 2025): bulk SMS rig over a bank of phones for UP Cebu NSTP community outreach; Python.</li>
+                </ul>
+            </div>
+
+            <h3 class="rs-section">Skills &amp; Interests</h3>
+            <ul>
+                <li><strong>Languages:</strong> C#, SQL, C, C++, HTML/CSS, Python, JavaScript</li>
+                <li><strong>Frameworks:</strong> ASP.NET Core, Blazor (Server, WebAssembly), FastEndpoints, EF Core, MediatR, SignalR, MudBlazor, React</li>
+                <li><strong>Architecture and data:</strong> Clean Architecture, DDD, CQRS, REST APIs, PostgreSQL, SQL Server, JWT, Google OAuth</li>
+                <li><strong>Cloud and tools:</strong> AWS S3, Docker, Git, GitHub Actions, xUnit, DNS and custom domains (Cloudflare)</li>
+                <li><strong>Interests:</strong> Video production (YouTube channel, about 2,000 subscribers), writing, public speaking, speed typing</li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+@code {
+    private sealed record ResumeProject(string Name, string Where, string? Url, string Role, string Dates, string[] Bullets);
+
+    private static readonly ResumeProject[] _projects =
+    [
+        new("Bursaria", "Scholarship information system", null, "Founder and Lead Developer", "Feb 2026 – Present",
+        [
+            "Building a scholarship platform that replaces spreadsheets and email chains with one system of record for institutions.",
+            "Designed scholar lifecycle management, per-term compliance, appeals, support tickets and an owed-vs-paid stipend ledger.",
+            "Architected with Clean Architecture, DDD and CQRS on Blazor Server, .NET 10 and PostgreSQL, with white-label theming.",
+        ]),
+        new("UPCSG Website", "upcsg.org", "https://upcsg.org", "Full-Stack Developer", "Jul 2026 – Present",
+        [
+            "Built and deployed UP Cebu’s Computer Science Guild platform: events, officer directory, Hall of Fame, opportunities.",
+            "Built a merch store with product variants, cart-to-checkout, order tracking and officer-confirmed GCash receipts.",
+            "Delivered a JWT-secured admin CMS with Google sign-in (Blazor WebAssembly, FastEndpoints, PostgreSQL, AWS S3).",
+        ]),
+        new("Ponyfolio", "ponyfolio.com", "https://ponyfolio.com", "Founder and Developer", "Aug 2026 – Present",
+        [
+            "Launched a publishing and commissions platform for Pony Town designers; 36 designs from 27 creators as of October 2026.",
+            "Built a commissions marketplace: packages, slot allocation, staged job tracking, paid creator tiers, admin analytics.",
+            "Wrote a companion browser extension that reads the game’s editor and renders every setting and hex colour into one image.",
+        ]),
+        new("FindersJeepers", "Fleet management platform", null, "Full-Stack Developer", "Apr 2026 – Jul 2026",
+        [
+            "Built jeepney fleet dispatch for drivers, routes and trips with real-time maps and a public journey map (Blazor, PostgreSQL).",
+        ]),
+    ];
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("spinellyChannel.page", "resume");
+        }
+    }
+}

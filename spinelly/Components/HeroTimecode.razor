@@ -1,0 +1,22 @@
+@* Viewfinder timecode: how long this visitor has been on air. Its own component
+   so the per-second tick re-renders one span, not the whole page. *@
+@implements IDisposable
+
+<span class="vf-osd vf-osd--tr" aria-hidden="true">TC @_elapsed.ToString(@"hh\:mm\:ss")</span>
+
+@code {
+    private readonly DateTime _start = DateTime.UtcNow;
+    private TimeSpan _elapsed;
+    private Timer? _timer;
+
+    protected override void OnInitialized()
+    {
+        _timer = new Timer(_ => InvokeAsync(() =>
+        {
+            _elapsed = DateTime.UtcNow - _start;
+            StateHasChanged();
+        }), null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+    }
+
+    public void Dispose() => _timer?.Dispose();
+}

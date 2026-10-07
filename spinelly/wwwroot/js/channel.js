@@ -8,7 +8,8 @@ window.spinellyChannel = {
     _render: function () {
         const labels = {
             home: 'Intro', projects: 'Projects', about: 'About',
-            education: 'Education', skills: 'Skills', contact: 'Contact'
+            education: 'Education', skills: 'Skills', contact: 'Contact',
+            resume: 'Resume'
         };
         const out = document.getElementById('bug-now-text');
         document.documentElement.dataset.now = this._now;
@@ -27,6 +28,18 @@ window.spinellyChannel = {
         }, { rootMargin: '-45% 0px -50% 0px' });
 
         document.querySelectorAll('main section[id]').forEach(s => observer.observe(s));
+        this._render();
+
+        // Arriving from another page (/resume → /#projects), the router lands on
+        // the top of Home; carry the visitor on to the section they asked for.
+        const target = location.hash && document.getElementById(location.hash.slice(1));
+        if (target) target.scrollIntoView();
+    },
+
+    // Pages without scrolling sections (the resume) name themselves.
+    page: function (id) {
+        this._now = id;
+        this._tape = null;
         this._render();
     },
 

@@ -5,15 +5,27 @@
 
 <section id="home" class="ident">
     <div class="wrap ident-grid">
-        <div class="ident-copy">
-            <p class="ident-kicker">
-                @_kickerText<span class="typing-caret @(_caretOnKicker ? "" : "typing-caret-hidden")"></span>
-            </p>
-            <h1 class="ident-name">
-                @_nameBase<span class="ident-suffix @(_suffixHighlighted ? "typing-highlight" : "")">@_nameSuffix</span><span class="typing-caret @(_caretOnName ? "" : "typing-caret-hidden")"></span>
-            </h1>
-            <p class="ident-role">Full-Stack Developer &amp; 3rd-Year CS Major</p>
+        @* The presenter shot: a viewfinder with its on-screen display, and the
+           ident burned in as one lower third over the picture. *@
+        <figure class="viewfinder">
+            <div class="vf-screen">
+                <img src="images/profile.jpg" alt="Portrait of Alex Sam Cabildo" />
+                <span class="monitor-scanlines" aria-hidden="true"></span>
+                <span class="vf-corner vf-corner--tl" aria-hidden="true"></span>
+                <span class="vf-corner vf-corner--tr" aria-hidden="true"></span>
+                <span class="vf-corner vf-corner--bl" aria-hidden="true"></span>
+                <span class="vf-corner vf-corner--br" aria-hidden="true"></span>
+                <span class="vf-osd vf-osd--tl" aria-hidden="true">CAM 1</span>
+                <HeroTimecode />
+            </div>
+            <figcaption class="ident-strap">
+                <span class="ident-call">What's poppin'? You can call me</span>
+                <h1 class="ident-name">Alex</h1>
+                <span class="ident-full">Alex Sam Cabildo · Full-Stack Developer &amp; 3rd-Year CS Major</span>
+            </figcaption>
+        </figure>
 
+        <div class="ident-copy">
             <p class="ident-emphasis">Nothing stops me and my vision. It will happen.</p>
             <p class="ident-desc">
                 I live in .NET, and systems architecture and design is where I do my best thinking.
@@ -23,6 +35,7 @@
 
             <div class="actions">
                 <a class="btn btn-primary" href="#projects">View My Work</a>
+                <a class="btn btn-ghost" href="resume">Resume</a>
                 <a class="btn btn-ghost" href="#contact">Get In Touch</a>
             </div>
 
@@ -31,17 +44,6 @@
                 rabbit hole with you on just about anything.
             </p>
         </div>
-
-        <figure class="monitor">
-            <div class="monitor-screen">
-                <img src="images/profile.jpg" alt="Portrait of Alex Sam Cabildo" />
-                <span class="monitor-scanlines" aria-hidden="true"></span>
-            </div>
-            <figcaption class="lower-third">
-                <span class="lt-name">Alex Sam Cabildo</span>
-                <span class="lt-role">BS Computer Science · UP Cebu</span>
-            </figcaption>
-        </figure>
     </div>
 </section>
 
@@ -189,94 +191,20 @@
             <a class="btn btn-ghost btn-lg" href="https://github.com/SpinellyA/" target="_blank" rel="noopener">
                 <MudIcon Icon="@Icons.Custom.Brands.GitHub" Size="Size.Small" /> GitHub
             </a>
+            <a class="btn btn-ghost btn-lg" href="resume">
+                <MudIcon Icon="@Icons.Material.Filled.Description" Size="Size.Small" /> Resume
+            </a>
         </div>
         <p class="signoff-address">cabildo.alexsam@gmail.com</p>
     </div>
 </section>
 
 @code {
-    private string _kickerText = "";
-    private string _nameBase = "";
-    private string _nameSuffix = "";
-    private bool _suffixHighlighted = false;
-    private bool _caretOnKicker = true;
-    private bool _caretOnName = false;
-
-    protected override void OnInitialized()
-    {
-        _ = RunHeroIntroAsync();
-    }
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JS.InvokeVoidAsync("spinellyChannel.watch");
-        }
-    }
-
-    private async Task RunHeroIntroAsync()
-    {
-        await TypeAsync(text => _kickerText = text, "Hello, my name is", 40);
-        await Task.Delay(250);
-
-        _caretOnKicker = false;
-        _caretOnName = true;
-        StateHasChanged();
-
-        await TypeAsync(text => _nameBase = text, "Alex", 60);
-        await TypeAsync(text => _nameSuffix = text, " Sam Cabildo", 45);
-        await Task.Delay(550);
-
-        _suffixHighlighted = true;
-        StateHasChanged();
-        await Task.Delay(500);
-
-        _nameSuffix = "";
-        _suffixHighlighted = false;
-        _caretOnName = false;
-        _caretOnKicker = true;
-        StateHasChanged();
-        await Task.Delay(200);
-
-        await DeleteToAsync(text => _kickerText = text, "", 40);
-        await Task.Delay(150);
-        await TypeAppendAsync(text => _kickerText = text, "", "What's poppin'? You can call me", 35);
-
-        await Task.Delay(400);
-        _caretOnKicker = false;
-        StateHasChanged();
-    }
-
-    private async Task TypeAsync(Action<string> setter, string fullText, int delayMs)
-    {
-        for (var i = 1; i <= fullText.Length; i++)
-        {
-            setter(fullText[..i]);
-            StateHasChanged();
-            await Task.Delay(delayMs);
-        }
-    }
-
-    private async Task TypeAppendAsync(Action<string> setter, string basePrefix, string suffix, int delayMs)
-    {
-        for (var i = 1; i <= suffix.Length; i++)
-        {
-            setter(basePrefix + suffix[..i]);
-            StateHasChanged();
-            await Task.Delay(delayMs);
-        }
-    }
-
-    private async Task DeleteToAsync(Action<string> setter, string targetPrefix, int delayMs)
-    {
-        var text = _kickerText;
-        while (text.Length > targetPrefix.Length)
-        {
-            text = text[..^1];
-            setter(text);
-            StateHasChanged();
-            await Task.Delay(delayMs);
         }
     }
 
