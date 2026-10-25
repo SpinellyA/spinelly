@@ -21,7 +21,7 @@ spinelly.net is Alex Sam Cabildo's personal portfolio. It proves that he ships r
 
 ## Positioning
 
-A 3rd-year CS student at UP Cebu whose portfolio is made of **live, shipped platforms** with real architecture behind them (Bursaria, UPCSG Website, Ponyfolio), not demos. He is also a video creator, which is why projects are presented as tapes playing on a TV.
+A 3rd-year CS student at UP Cebu whose portfolio is made of **live, shipped platforms** with real architecture behind them (Scholaris, UPCSG Website, Ponyfolio), not demos. He is also a video creator, which is why projects are presented as tapes playing on a TV.
 
 ## Operating Context
 
@@ -46,7 +46,7 @@ A 3rd-year CS student at UP Cebu whose portfolio is made of **live, shipped plat
 
 ## Evidence on Hand
 
-- Real projects with live URLs and repos: Bursaria (flagship, under maintenance; leave its links as the owner set them), UPCSG Website (live, upcsg.org), Ponyfolio (live, ponyfolio.com), Amiki (personal organiser, owner-written description), FindersJeepers (not deployed), Project Artemis (live at artemis.runasp.net, narrated video `images/projects/artemis.mp4`), SMS Bulker, ExamGrinder (live on GitHub Pages).
+- Real projects with live URLs and repos: Scholaris, formerly Bursaria (flagship, under maintenance; leave its links as the owner set them), UPCSG Website (live, upcsg.org), Ponyfolio (live, ponyfolio.com), Amiki (personal organiser, owner-written description), FindersJeepers (not deployed), Project Artemis (live at artemis.runasp.net, narrated video `images/projects/artemis.mp4`), SMS Bulker, ExamGrinder (live on GitHub Pages).
 - TV screens in `images/projects/*.webp`: captured from the live sites, or cropped from owner-supplied screenshots with personal data (email, phone, reference ID, private links) covered before publishing.
 - Portrait: `images/profile.jpg`. Institution logos: `images/logos/` (UP, DOST, Cebu City National Science High School).
 - Education: BS Computer Science at UP Cebu (2024-present), DOST-SEI RA 7687 scholar, Senior and Junior High at Cebu City National Science High School with High Honors.
