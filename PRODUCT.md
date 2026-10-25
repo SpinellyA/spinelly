@@ -26,7 +26,7 @@ A 3rd-year CS student at UP Cebu whose portfolio is made of **live, shipped plat
 ## Operating Context
 
 - Hosted as a static Blazor WebAssembly site on GitHub Pages at the apex `spinelly.net`, DNS on Cloudflare. No backend.
-- Projects link out to their own live subdomains (`upcsg.spinelly.net`, `ponyfolio.spinelly.net`, planned `bursaria.spinelly.net`) and GitHub repos under `SpinellyA`.
+- Projects link out to their own live subdomains (`upcsg.spinelly.net`, `ponyfolio.spinelly.net`, `scholaris.spinelly.net` and `scholaris-app.spinelly.net`) and GitHub repos under `SpinellyA`.
 - Project media are self-recorded screen walkthroughs (narrated MP4) stored in `wwwroot/images/projects/`.
 
 ## Capabilities and Constraints
