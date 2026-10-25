@@ -289,13 +289,23 @@
     [
         new(
             "Scholaris",
-            "The scholarship platform that replaces spreadsheets, chasing emails, and guesswork with one system of record.",
-            "A scholarship information system built for institutions, not spreadsheets. Full scholar lifecycle management, per-term compliance submissions, a real owed-vs-paid stipend ledger, an appeals process, support tickets, and white-label theming, all on one platform.",
+            "A scholarship information system for offices that answer for public money: every scholar, every term, every stipend, on one auditable record.",
+            "Scholars file a report each term, and staff approve, send back or deny it in one pass. Approved scholars move through a stipend payroll from endorsement to release, Landbank holds included. Miss a report and a scholar is withheld automatically, with a grace period and an in-app appeal before termination. After graduation, it tracks their return-of-service employment year by year. Every change, sign-in and document view lands in an audit log, and the whole system has been hardened against the Data Privacy Act: scoped admin roles, two-factor sign-in, a privacy notice and retention rules. Multi-school, multi-region and white-label, with PDF statements and CSV reports for auditors.",
             "https://scholaris.spinelly.net",
             "https://scholaris-app.spinelly.net",
-            [new Tag("Blazor Server"), new Tag(".NET 10"), new Tag("PostgreSQL"), new Tag("Clean Architecture"), new Tag("DDD"), new Tag("CQRS")],
+            [
+                new Tag("Blazor WebAssembly"),
+                new Tag("ASP.NET Core"),
+                new Tag("FastEndpoints"),
+                new Tag("PostgreSQL"),
+                new Tag("Clean Architecture"),
+                new Tag("DDD"),
+                new Tag("CQRS", "MediatR handlers with FluentValidation."),
+                new Tag("Testcontainers", "278 tests, with the data-access and endpoint suites running against a real PostgreSQL."),
+                new Tag("Data Privacy Act", "Reviewed against RA 10173: scoped admins, two-factor sign-in, a privacy notice, retention rules and an audit trail of every document view."),
+            ],
             Featured: true,
-            Screens: ["images/projects/scholaris-1.webp"]
+            Screens: ["images/projects/scholaris-1.webp", "images/projects/scholaris-2.webp", "images/projects/scholaris-3.webp", "images/projects/scholaris-4.webp", "images/projects/scholaris-5.webp"]
         ),
         new(
             "UPCSG Website",
